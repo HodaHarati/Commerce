@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/app_bar_profile"
+        android:title="پروفایل"
+        app:showAsAction="always|collapseActionView"
+        android:icon="@drawable/ic_account"/>
+
+    <item
+        android:id="@+id/app_bar_bascket"
+        android:title="سبد خرید"
+        app:showAsAction="always|collapseActionView"
+        android:icon="@drawable/ic_menu_shoppingcart"/>
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_menu_search"
+        android:title="جستجو"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+</menu>

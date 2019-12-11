@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="خانه"/>
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/ic_menu_category"
+            android:title="لیست دسته بندی محصولات"/>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_shoppingcart"
+            android:icon="@drawable/ic_menu_shoppingcart"
+            android:title="سبد خرید"/>
+        <item
+            android:id="@+id/nav_newest"
+            android:icon="@drawable/ic_menu_star"
+            android:title="جدیدترین ها"/>
+        <item
+            android:id="@+id/nav_mostVisited"
+            android:icon="@drawable/ic_menu_star"
+            android:title="پربازدیدترین ها"/>
+        <item
+            android:id="@+id/nav_best"
+            android:icon="@drawable/ic_menu_star"
+            android:title="بهترین ها"/>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_menu_setting"
+            android:title="تنظیمات"/>
+        <item
+            android:id="@+id/nav_common_question"
+            android:icon="@drawable/ic_menu_question"
+            android:title="سوالات متداول"/>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_stor"
+            android:title="درباره ما"/>
+
+
+    </group>
+
+</menu>
