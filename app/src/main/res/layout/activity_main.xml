@@ -50,10 +50,10 @@
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
-        
-        
+
+
         <FrameLayout
-            android:id="@+id/container"
+            android:id="@+id/container_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"/>
