@@ -13,11 +13,9 @@
         <item
             android:id="@+id/nav_category"
             android:icon="@drawable/ic_menu_category"
-            android:title="لیست دسته بندی محصولات"/>
+            android:title="لیست دسته بندی محصولات"
+            style="@style/Divider"/>
 
-    </group>
-
-    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_shoppingcart"
             android:icon="@drawable/ic_menu_shoppingcart"
@@ -33,11 +31,9 @@
         <item
             android:id="@+id/nav_best"
             android:icon="@drawable/ic_menu_star"
-            android:title="بهترین ها"/>
+            android:title="بهترین ها"
+            style="@style/Divider"/>
 
-    </group>
-
-    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_setting"
@@ -51,7 +47,8 @@
             android:icon="@drawable/ic_menu_stor"
             android:title="درباره ما"/>
 
-
     </group>
 
 </menu>
+
+

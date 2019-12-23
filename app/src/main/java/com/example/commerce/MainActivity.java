@@ -29,15 +29,15 @@ public class MainActivity extends SingleFragmentActivity {
 
         initView();
         toolbarSetup();
-
-
     }
+
 
     private void initView() {
         mToolbar = findViewById(R.id.toolbar);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mNavigationView = findViewById(R.id.nav_view);
     }
+
 
     private void toolbarSetup() {
         setSupportActionBar(mToolbar);
@@ -46,10 +46,11 @@ public class MainActivity extends SingleFragmentActivity {
         toggle.syncState();
     }
 
+
     @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
-            mDrawerLayout.closeDrawer(GravityCompat.START);
+            mDrawerLayout.closeDrawer(GravityCompat.START);/// dakhele pranrez chie?
         else
             super.onBackPressed();
     }
