@@ -1,4 +1,4 @@
-package com.example.commerce;
+package com.example.commerce.view;
 
 
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.commerce.R;
 
 
 /**

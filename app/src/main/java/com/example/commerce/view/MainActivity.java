@@ -1,15 +1,14 @@
-package com.example.commerce;
+package com.example.commerce.view;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
+import com.example.commerce.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity {

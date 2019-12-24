@@ -1,10 +1,12 @@
-package com.example.commerce;
+package com.example.commerce.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+
+import com.example.commerce.R;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
