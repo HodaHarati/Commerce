@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -22,7 +21,7 @@
                 android:paddingTop="5dp"
                 app:indicator_visibility="visible"
                 app:pager_animation="Default"
-                tools:ignore="MissingConstraints"/>
+                tools:ignore="MissingConstraints" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -30,53 +29,77 @@
 
                 <TextView
                     android:id="@+id/txtnewst"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="جدیدترین محصولات"
-                    android:textStyle="bold"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/newestProduct"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/newestProduct"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/mostVisited" />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/txtmostvisited"
+                    app:layout_constraintTop_toBottomOf="@id/txtnewst"
+                    tools:listitem="@layout/item_list" />
 
 
                 <TextView
                     android:id="@+id/txtmostvisited"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="پربازدیدترین محصولات"
-                    android:textStyle="bold"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/mostVisited"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginBottom="8dp"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/newestProduct" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mostVisited"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@id/bestProduct"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/txtbestProduct"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtmostvisited"
+                    tools:listitem="@layout/item_list" />
 
                 <TextView
                     android:id="@+id/txtbestProduct"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="بهترین محصولات"
-                    android:textStyle="bold"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/bestProduct"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mostVisited" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/bestProduct"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtbestProduct"
+                    tools:listitem="@layout/item_list" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

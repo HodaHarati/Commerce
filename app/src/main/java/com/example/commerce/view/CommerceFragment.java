@@ -68,7 +68,7 @@ public class CommerceFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.commerce_fragment, container, false);
         mBinding.executePendingBindings();
 
-        mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext())); //, LinearLayoutManager.HORIZONTAL, false));
+        mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
         return mBinding.getRoot();
     }
