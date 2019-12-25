@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,9 +22,13 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
+import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
+import com.example.commerce.model.Response;
+import com.example.commerce.network.ProductRepository;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -29,6 +37,7 @@ import java.util.HashMap;
 public class CommerceFragment extends Fragment {
 
     CommerceFragmentBinding mBinding;
+    private ProductAdapter mAdapter;
 
     public static CommerceFragment newInstance() {
         
@@ -49,6 +58,7 @@ public class CommerceFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+        updateItem();
     }
 
     @Override
@@ -58,6 +68,7 @@ public class CommerceFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.commerce_fragment, container, false);
         mBinding.executePendingBindings();
 
+        mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext())); //, LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
         return mBinding.getRoot();
     }
@@ -79,5 +90,30 @@ public class CommerceFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main_menu, menu);
 
+    }
+
+    public void setUpAdapter(List<Response> responses){
+        if (isAdded()){
+            if (mAdapter == null){
+                mAdapter = new ProductAdapter(getContext(),responses);
+                mBinding.newestProduct.setAdapter(mAdapter);
+            }
+            else {
+                mAdapter.setItems(responses);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void updateItem(){
+        MutableLiveData<List<Response>> itemsLiveData;
+        ProductRepository productRepository = ProductRepository.getInstance();
+        itemsLiveData = productRepository.getAllProduct();
+        itemsLiveData.observe(getActivity(), new Observer<List<Response>>() {
+            @Override
+            public void onChanged(List<Response> responses) {
+                setUpAdapter(responses);
+            }
+        });
     }
 }
