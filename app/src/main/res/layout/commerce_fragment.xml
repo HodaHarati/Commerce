@@ -4,21 +4,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
 
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.CommerceFragment">
+        tools:context=".view.CommerceFragment"
+        android:orientation="vertical">
 
-        <com.daimajia.slider.library.SliderLayout
-            android:id="@+id/sliderLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:paddingTop="5dp"
-            app:indicator_visibility="visible"
-            app:pager_animation="Default"
-            tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/sliderLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:paddingTop="5dp"
+                app:indicator_visibility="visible"
+                app:pager_animation="Default"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtnewst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="جدیدترین محصولات"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/newestProduct"
+                    app:layout_constraintRight_toRightOf="parent"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/newestProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/mostVisited" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/txtmostvisited"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="پربازدیدترین محصولات"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/mostVisited"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginBottom="8dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mostVisited"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/bestProduct"/>
+
+                <TextView
+                    android:id="@+id/txtbestProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="بهترین محصولات"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/bestProduct"
+                    app:layout_constraintRight_toRightOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/bestProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 </layout>

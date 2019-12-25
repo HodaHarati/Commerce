@@ -48,12 +48,12 @@ public class ProductRepository {
 
     public MutableLiveData<List<Response>> getAllProduct(){
         Call<List<Response>> call = mProductService.getResponse(mQueries);
-
+        MutableLiveData<List<Response>> items = new MutableLiveData<>();
         call.enqueue(new Callback<List<Response>>() {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 List<Response> objResponce = response.body();
-                mItemsLiveData.setValue(objResponce);
+                items.setValue(objResponce);
             }
 
             @Override
@@ -61,6 +61,6 @@ public class ProductRepository {
 
             }
         });
-        return mItemsLiveData;
+        return items;
     }
 }
