@@ -92,14 +92,14 @@ public class CommerceFragment extends Fragment {
 
     }
 
-    public void setUpAdapter(List<Response> responses){
+    public void setUpAdapter(List<Response> responseList){
         if (isAdded()){
             if (mAdapter == null){
-                mAdapter = new ProductAdapter(getContext(),responses);
+                mAdapter = new ProductAdapter(getContext(),responseList);
                 mBinding.newestProduct.setAdapter(mAdapter);
             }
             else {
-                mAdapter.setItems(responses);
+                mAdapter.setItems(responseList);
                 mAdapter.notifyDataSetChanged();
             }
         }
