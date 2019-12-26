@@ -39,6 +39,8 @@ public class CommerceFragment extends Fragment {
     CommerceFragmentBinding mBinding;
     private ProductAdapter mAdapter;
 
+    ProductRepository productRepository;
+
     public static CommerceFragment newInstance() {
         
         Bundle args = new Bundle();
@@ -57,6 +59,7 @@ public class CommerceFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        productRepository = ProductRepository.getInstance();
         setHasOptionsMenu(true);
         updateItem();
     }
@@ -69,6 +72,7 @@ public class CommerceFragment extends Fragment {
         mBinding.executePendingBindings();
 
         mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
         return mBinding.getRoot();
     }
@@ -91,7 +95,7 @@ public class CommerceFragment extends Fragment {
         inflater.inflate(R.menu.main_menu, menu);
 
     }
-
+/*
     public void setUpAdapter(List<Response> responseList){
         if (isAdded()){
             if (mAdapter == null){
@@ -103,17 +107,45 @@ public class CommerceFragment extends Fragment {
                 mAdapter.notifyDataSetChanged();
             }
         }
-    }
+    }*/
 
     public void updateItem(){
         MutableLiveData<List<Response>> itemsLiveData;
-        ProductRepository productRepository = ProductRepository.getInstance();
         itemsLiveData = productRepository.getAllProduct();
         itemsLiveData.observe(getActivity(), new Observer<List<Response>>() {
             @Override
             public void onChanged(List<Response> responses) {
-                setUpAdapter(responses);
+               // setUpAdapter(responses);
+                if (isAdded()){
+                    if (mAdapter == null){
+                        mAdapter = new ProductAdapter(getContext(),responses);
+                        mBinding.newestProduct.setAdapter(mAdapter);
+                    }
+                    else {
+                        mAdapter.setItems(responses);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
             }
         });
+
+        MutableLiveData<List<Response>> mMostvisitedLiveData;
+        mMostvisitedLiveData = productRepository.getMostVisitedProduct();
+        mMostvisitedLiveData.observe(getActivity(), new Observer<List<Response>>() {
+            @Override
+            public void onChanged(List<Response> responses) {
+                if (isAdded()){
+                    if (mAdapter == null){
+                        mAdapter = new ProductAdapter(getContext(),responses);
+                        mBinding.mostVisited.setAdapter(mAdapter);
+                    }
+                    else {
+                        mAdapter.setItems(responses);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
     }
 }

@@ -1,6 +1,7 @@
 package com.example.commerce.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.example.commerce.R;
 import com.example.commerce.databinding.ItemListBinding;
 import com.example.commerce.model.ImagesItem;
 import com.example.commerce.model.Response;
+import com.example.commerce.view.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     private Context mContext;
     private List<Response> mItems;
+
+    private String mProductID;
 
     public void setItems(List<Response> items) {
         mItems = items;
@@ -60,13 +64,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             mListBinding.imgListItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = ItemOfProductActivity.newIntent(mContext, mProductID);
+//                    intent.putExtra(EXTRA_PRODUCT_ID, mProductID);
+                    mContext.startActivity(intent);
                 }
             });
         }
 
         public void bind(Response response){
             mResponse = response;
+            mProductID = String.valueOf(mResponse.getId());
             mListBinding.txtNameListItem.setText(mResponse.getName());
             mListBinding.txtPriceListItem.setText(mResponse.getPrice());
             for (ImagesItem imagesItem : response.getImages()) {
