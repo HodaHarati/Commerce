@@ -60,7 +60,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         app:cardElevation="8dp"
-        android:layout_margin="8dp">
+        android:layout_margin="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="10dp"
                 android:text="افزودن به سبد خرید"
                 android:textSize="15sp"
                 app:icon="@drawable/add_shopping"
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="20000 تومان"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="10dp"
                 android:textColor="#C00909"/>
             <TextView
                 android:id="@+id/txt_orginal_price"
@@ -89,7 +89,7 @@
                 tools:text="20000 تومان"
                 android:textStyle="bold"
                 android:layout_marginTop="6dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="10dp"
                 android:layout_below="@id/txt_sale_price"/>
 
 

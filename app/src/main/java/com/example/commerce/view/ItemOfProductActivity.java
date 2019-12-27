@@ -25,9 +25,9 @@ public class ItemOfProductActivity extends SingleFragmentActivity {
         return ItemOfProductFragment.newInstance(id);
     }
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_of_product);
-    }
+    }*/
 }

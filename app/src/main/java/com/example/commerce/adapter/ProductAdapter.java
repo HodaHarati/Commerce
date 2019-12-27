@@ -79,7 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             for (ImagesItem imagesItem : response.getImages()) {
                 Picasso.with(mContext).load(imagesItem.getSrc())
                         .placeholder(R.drawable.image_loading)
-                        .into(mListBinding.imgListItem);
+                        .into(mListBinding.imgListItem);/////  aya kheili barname sangin nemishad???
 
             }
 
