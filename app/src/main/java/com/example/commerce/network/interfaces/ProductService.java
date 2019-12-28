@@ -23,4 +23,6 @@ public interface ProductService {
 
     @GET("products/{id}")
     Call<Response> item (@Path("id") String id, @QueryMap Map<String, String> queries);
+
+
 }

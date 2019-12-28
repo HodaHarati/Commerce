@@ -17,14 +17,15 @@ import com.example.commerce.model.Response;
 import com.example.commerce.view.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
     private Context mContext;
-    private List<Response> mItems;
+    private List<Response> mItems = new ArrayList<>();
 
-    private String mProductID;
+    private int mProductID;
 
     public void setItems(List<Response> items) {
         mItems = items;
@@ -32,7 +33,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     public ProductAdapter(Context context, List<Response> items) {
         mContext = context;
-        mItems = items;
+       // mItems = items;
     }
 
     @NonNull
@@ -51,6 +52,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public int getItemCount() {
         return mItems.size();
     }
+
 
 
     public class ProductHolder extends RecyclerView.ViewHolder{
@@ -73,14 +75,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         public void bind(Response response){
             mResponse = response;
-            mProductID = String.valueOf(mResponse.getId());
+            mProductID = mResponse.getId();
             mListBinding.txtNameListItem.setText(mResponse.getName());
             mListBinding.txtPriceListItem.setText(mResponse.getPrice());
             for (ImagesItem imagesItem : response.getImages()) {
                 Picasso.with(mContext).load(imagesItem.getSrc())
                         .placeholder(R.drawable.image_loading)
                         .into(mListBinding.imgListItem);/////  aya kheili barname sangin nemishad???
-
             }
 
         }

@@ -1,5 +1,7 @@
 package com.example.commerce.network;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.commerce.model.Response;
@@ -14,10 +16,12 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class ProductRepository {
 
     private static ProductRepository sInstance;
 
+    private String TAG = "ProductRepository";
     public static final String BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/";
     public static final String CONSUMER_KEY = "ck_afcde41bdfa7c7ab871bd26f950ce0101ac96c92";
     public static final String CONSUMER_SECRET = "cs_48ed218ae80a2d28cf1b88378f66f75ead30d99a";
@@ -48,18 +52,27 @@ public class ProductRepository {
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
     }
 
+    public MutableLiveData<List<Response>> getItemsLiveData() {
+        return mItemsLiveData;
+    }
+
+    public MutableLiveData<List<Response>> getMostvisitedLiveData() {
+        return mMostvisitedLiveData;
+    }
+
     public MutableLiveData<List<Response>> getAllProduct(){
         Call<List<Response>> call = mProductService.getResponse(mQueries);
         call.enqueue(new Callback<List<Response>>() {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 List<Response> objResponce = response.body();
-                mItemsLiveData.setValue(objResponce);  //setValue ya postvalue
+                mItemsLiveData.postValue(objResponce);  //setValue ya postvalue
+                Log.d(TAG, "onResponse: ");
             }
 
             @Override
             public void onFailure(Call<List<Response>> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: "+ t.getMessage());
             }
         });
         return mItemsLiveData;
@@ -71,7 +84,7 @@ public class ProductRepository {
         call.enqueue(new Callback<List<Response>>() {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
-                mMostvisitedLiveData.setValue(response.body());
+                mMostvisitedLiveData.postValue(response.body());
             }
 
             @Override

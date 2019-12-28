@@ -13,7 +13,7 @@ public class ItemOfProductActivity extends SingleFragmentActivity {
 
     public static final String EXTRA_PRODUCT_ID = "product_id";
 
-    public static Intent newIntent(Context context, String productID){
+    public static Intent newIntent(Context context, int productID){
         Intent intent = new Intent(context, ItemOfProductActivity.class);
         intent.putExtra(EXTRA_PRODUCT_ID, productID);
         return intent;
@@ -21,7 +21,7 @@ public class ItemOfProductActivity extends SingleFragmentActivity {
 
     @Override
     public Fragment createFragment() {
-        String id = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+        int id = getIntent().getIntExtra(EXTRA_PRODUCT_ID, 0);
         return ItemOfProductFragment.newInstance(id);
     }
 

@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +28,7 @@ import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
+import com.example.commerce.viewmodel.CommerceFragmentViewModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +39,14 @@ import java.util.List;
  */
 public class CommerceFragment extends Fragment {
 
-    CommerceFragmentBinding mBinding;
-    private ProductAdapter mAdapter;
+    private String TAG = "CommerceFragment";
 
+    CommerceFragmentBinding mBinding;
+    CommerceFragmentViewModel mViewModel;
     ProductRepository productRepository;
+
+    private ProductAdapter mAdapterNewwst;
+    private ProductAdapter mAdapterMostViseted;
 
     public static CommerceFragment newInstance() {
         
@@ -59,9 +66,25 @@ public class CommerceFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mViewModel = ViewModelProviders.of(this).get(CommerceFragmentViewModel.class);
+        mViewModel.getProductLiveData().observe(this, new Observer<List<Response>>() {
+            @Override
+            public void onChanged(List<Response> responses) {
+                setUpAdapterNewest(responses);
+                Log.d(TAG, "onChanged: " + responses);
+            }
+        });
+        mViewModel.getAllProduct();
+        mViewModel.getMostVisitedLiveData().observe(this, new Observer<List<Response>>() {
+            @Override
+            public void onChanged(List<Response> responses) {
+                setUpAdapterMostvisited(responses);
+            }
+        });
+        mViewModel.getMostVisitedProduct();
         productRepository = ProductRepository.getInstance();
         setHasOptionsMenu(true);
-        updateItem();
+       // updateItem();
     }
 
     @Override
@@ -95,20 +118,32 @@ public class CommerceFragment extends Fragment {
         inflater.inflate(R.menu.main_menu, menu);
 
     }
-/*
-    public void setUpAdapter(List<Response> responseList){
+    public void setUpAdapterNewest(List<Response> responseList){
         if (isAdded()){
-            if (mAdapter == null){
-                mAdapter = new ProductAdapter(getContext(),responseList);
-                mBinding.newestProduct.setAdapter(mAdapter);
+            if (mAdapterNewwst == null) {
+                mAdapterNewwst = new ProductAdapter(getContext(), responseList);
+                mBinding.newestProduct.setAdapter(mAdapterNewwst);
             }
-            else {
-                mAdapter.setItems(responseList);
-                mAdapter.notifyDataSetChanged();
-            }
-        }
-    }*/
 
+            mAdapterNewwst.setItems(responseList);
+            mAdapterNewwst.notifyDataSetChanged();
+            Log.d(TAG, "setUpAdapter: called");
+
+        }
+    }
+    public void setUpAdapterMostvisited(List<Response> mostvisited){
+        if (isAdded()){
+            if (mAdapterMostViseted == null){
+                mAdapterMostViseted = new ProductAdapter(getContext(), mostvisited);
+                mBinding.mostVisited.setAdapter(mAdapterMostViseted);
+            }
+            mAdapterMostViseted.setItems(mostvisited);
+            mAdapterMostViseted.notifyDataSetChanged();
+            Log.d(TAG, "setUpAdapter: called");
+
+        }
+    }
+/*
     public void updateItem(){
         MutableLiveData<List<Response>> itemsLiveData;
         itemsLiveData = productRepository.getAllProduct();
@@ -127,8 +162,8 @@ public class CommerceFragment extends Fragment {
                     }
                 }
             }
-        });
-
+        });*/
+/*
         MutableLiveData<List<Response>> mMostvisitedLiveData;
         mMostvisitedLiveData = productRepository.getMostVisitedProduct();
         mMostvisitedLiveData.observe(getActivity(), new Observer<List<Response>>() {
@@ -145,7 +180,7 @@ public class CommerceFragment extends Fragment {
                     }
                 }
             }
-        });
+        });*/
 
-    }
+   // }
 }
