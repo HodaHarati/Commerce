@@ -7,11 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
@@ -47,6 +44,7 @@ public class CommerceFragment extends Fragment {
 
     private ProductAdapter mAdapterNewwst;
     private ProductAdapter mAdapterMostViseted;
+    private ProductAdapter mAdapterBest;
 
     public static CommerceFragment newInstance() {
         
@@ -67,24 +65,26 @@ public class CommerceFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mViewModel = ViewModelProviders.of(this).get(CommerceFragmentViewModel.class);
-        mViewModel.getProductLiveData().observe(this, new Observer<List<Response>>() {
-            @Override
-            public void onChanged(List<Response> responses) {
-                setUpAdapterNewest(responses);
-                Log.d(TAG, "onChanged: " + responses);
-            }
+
+        mViewModel.getNewestProductLiveData().observe(this, responses -> {
+            setUpAdapterNewest(responses);
+            Log.d(TAG, "onChanged: " + responses);
         });
-        mViewModel.getAllProduct();
-        mViewModel.getMostVisitedLiveData().observe(this, new Observer<List<Response>>() {
-            @Override
-            public void onChanged(List<Response> responses) {
-                setUpAdapterMostvisited(responses);
-            }
-        });
+        mViewModel.getAllNewestProduct();
+
+        mViewModel.getMostVisitedLiveData().observe(this, responses -> setUpAdapterMostvisited(responses));
         mViewModel.getMostVisitedProduct();
+
+        mViewModel.getBestLiveData().observe(this, new Observer<List<Response>>() {
+            @Override
+            public void onChanged(List<Response> responses) {
+                setUpAdapterBest(responses);
+            }
+        });
+        mViewModel.getBestProduct();
+
         productRepository = ProductRepository.getInstance();
         setHasOptionsMenu(true);
-       // updateItem();
     }
 
     @Override
@@ -96,6 +96,7 @@ public class CommerceFragment extends Fragment {
 
         mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        mBinding.bestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
         return mBinding.getRoot();
     }
@@ -128,7 +129,6 @@ public class CommerceFragment extends Fragment {
             mAdapterNewwst.setItems(responseList);
             mAdapterNewwst.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
-
         }
     }
     public void setUpAdapterMostvisited(List<Response> mostvisited){
@@ -143,44 +143,15 @@ public class CommerceFragment extends Fragment {
 
         }
     }
-/*
-    public void updateItem(){
-        MutableLiveData<List<Response>> itemsLiveData;
-        itemsLiveData = productRepository.getAllProduct();
-        itemsLiveData.observe(getActivity(), new Observer<List<Response>>() {
-            @Override
-            public void onChanged(List<Response> responses) {
-               // setUpAdapter(responses);
-                if (isAdded()){
-                    if (mAdapter == null){
-                        mAdapter = new ProductAdapter(getContext(),responses);
-                        mBinding.newestProduct.setAdapter(mAdapter);
-                    }
-                    else {
-                        mAdapter.setItems(responses);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }
+    public void setUpAdapterBest (List<Response> best){
+        if (isAdded()){
+            if (mAdapterBest == null){
+                mAdapterBest = new ProductAdapter(getContext(), best);
+                mBinding.bestProduct.setAdapter(mAdapterBest);
             }
-        });*/
-/*
-        MutableLiveData<List<Response>> mMostvisitedLiveData;
-        mMostvisitedLiveData = productRepository.getMostVisitedProduct();
-        mMostvisitedLiveData.observe(getActivity(), new Observer<List<Response>>() {
-            @Override
-            public void onChanged(List<Response> responses) {
-                if (isAdded()){
-                    if (mAdapter == null){
-                        mAdapter = new ProductAdapter(getContext(),responses);
-                        mBinding.mostVisited.setAdapter(mAdapter);
-                    }
-                    else {
-                        mAdapter.setItems(responses);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-        });*/
-
-   // }
+            mAdapterBest.setItems(best);
+            mAdapterBest.notifyDataSetChanged();
+            Log.d(TAG, "setUpAdapter: called");
+        }
+    }
 }

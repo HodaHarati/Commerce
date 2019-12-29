@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     app:lottie_fileName="splash.json"
     app:lottie_autoPlay="true"
+    android:background="@color/colorPrimaryDark"
     app:lottie_loop="true"
-    tools:context=".view.SpalshActivity">
+    tools:context=".view.SplashActivity">
 
 </com.airbnb.lottie.LottieAnimationView>

@@ -1,7 +1,5 @@
 package com.example.commerce.network;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.commerce.model.Response;
@@ -29,8 +27,10 @@ public class ProductRepository {
     private Map<String, String> mQueries;
     private Retrofit mRetrofit;
     private ProductService mProductService;
-    private MutableLiveData<List<Response>> mItemsLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Response>> mNewestLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
+    private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
 
 
     public static ProductRepository getInstance() {
@@ -52,39 +52,48 @@ public class ProductRepository {
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
     }
 
-    public MutableLiveData<List<Response>> getItemsLiveData() {
-        return mItemsLiveData;
+    public MutableLiveData<List<Response>> getNewestLiveData() {
+        return mNewestLiveData;
     }
 
     public MutableLiveData<List<Response>> getMostvisitedLiveData() {
         return mMostvisitedLiveData;
     }
 
-    public MutableLiveData<List<Response>> getAllProduct(){
-        Call<List<Response>> call = mProductService.getResponse(mQueries);
-        call.enqueue(new Callback<List<Response>>() {
-            @Override
-            public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
-                List<Response> objResponce = response.body();
-                mItemsLiveData.postValue(objResponce);  //setValue ya postvalue
-                Log.d(TAG, "onResponse: ");
-            }
+    public MutableLiveData<List<Response>> getBestLiveData() {
+        return mBestLiveData;
+    }
 
-            @Override
-            public void onFailure(Call<List<Response>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+ t.getMessage());
-            }
-        });
-        return mItemsLiveData;
+    public MutableLiveData<Response> getItemProductLiveData() {
+        return mItemProductLiveData;
+    }
+
+    public MutableLiveData<List<Response>> getNewestProduct(){
+        mQueries.put("orderby", "date");
+        Call<List<Response>> call = mProductService.getResponse(mQueries);
+        getEnqueue(call, mNewestLiveData);
+        return mNewestLiveData;
     }
 
     public MutableLiveData<List<Response>> getMostVisitedProduct(){
         mQueries.put("orderby", "popularity");
         Call<List<Response>> call = mProductService.mostVisitedProducts(mQueries);
+        getEnqueue(call, mMostvisitedLiveData);
+        return mMostvisitedLiveData;
+    }
+
+    public MutableLiveData<List<Response>> getBestProduct(){
+        mQueries.put("orderby", "rating");
+        Call<List<Response>> call = mProductService.bestProduct(mQueries);
+        getEnqueue(call, mBestLiveData);
+        return mBestLiveData;
+    }
+
+    private void getEnqueue(Call<List<Response>> call, MutableLiveData<List<Response>> liveData) {
         call.enqueue(new Callback<List<Response>>() {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
-                mMostvisitedLiveData.postValue(response.body());
+                liveData.postValue(response.body());
             }
 
             @Override
@@ -92,16 +101,14 @@ public class ProductRepository {
 
             }
         });
-        return mMostvisitedLiveData;
     }
 
     public MutableLiveData<Response> getItem(int productid){
-        MutableLiveData<Response> mItemLiveData = new MutableLiveData<>();
         Call<Response> call = mProductService.item(String.valueOf(productid), mQueries);
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                mItemLiveData.postValue(response.body());
+                mItemProductLiveData.postValue(response.body());
             }
 
             @Override
@@ -109,6 +116,6 @@ public class ProductRepository {
 
             }
         });
-        return mItemLiveData;
+        return mItemProductLiveData;
     }
 }

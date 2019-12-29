@@ -17,9 +17,10 @@ public interface ProductService {
 
     @GET("products")
     Call<List<Response>> mostVisitedProducts (@QueryMap Map<String, String> queries);
-//
-//    @GET()
-//    Call<List<Response>>
+
+    @GET("products")
+    Call<List<Response>> bestProduct (@QueryMap Map<String, String> queries);
+
 
     @GET("products/{id}")
     Call<Response> item (@Path("id") String id, @QueryMap Map<String, String> queries);

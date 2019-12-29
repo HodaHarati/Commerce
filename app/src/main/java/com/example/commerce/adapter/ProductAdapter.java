@@ -17,6 +17,7 @@ import com.example.commerce.model.Response;
 import com.example.commerce.view.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +67,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             mListBinding.imgListItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = ItemOfProductActivity.newIntent(mContext, mProductID);
-//                    intent.putExtra(EXTRA_PRODUCT_ID, mProductID);
+                    Intent intent = ItemOfProductActivity.newIntent(mContext, mResponse.getId());
                     mContext.startActivity(intent);
                 }
             });
@@ -75,14 +75,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         public void bind(Response response){
             mResponse = response;
-            mProductID = mResponse.getId();
             mListBinding.txtNameListItem.setText(mResponse.getName());
-            mListBinding.txtPriceListItem.setText(mResponse.getPrice());
-            for (ImagesItem imagesItem : response.getImages()) {
-                Picasso.with(mContext).load(imagesItem.getSrc())
+            mListBinding.txtPriceListItem.setText(mResponse.getPrice() + " تومان");
+                Picasso.with(mContext)
+                        .load(response.getImages().get(0).getSrc())
                         .placeholder(R.drawable.image_loading)
                         .into(mListBinding.imgListItem);/////  aya kheili barname sangin nemishad???
-            }
+
 
         }
     }

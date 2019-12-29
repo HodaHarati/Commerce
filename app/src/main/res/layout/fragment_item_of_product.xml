@@ -20,18 +20,19 @@
             android:layout_margin="8dp">
 
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/item_view_pager"
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/item_sliderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_alignParentTop="true"
-                android:scaleType="centerCrop" />
+                android:paddingTop="5dp"
+                app:indicator_visibility="visible"
+                android:scrollbarFadeDuration="70000"/>
 
             <TextView
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_view_pager"
+                android:layout_below="@id/item_sliderLayout"
                 android:layout_marginTop="8dp"
                 android:padding="8dp"
                 android:textSize="16sp"
