@@ -49,14 +49,13 @@ public class CommerceFragment extends Fragment {
     private ProductAdapter mAdapterCategory;
 
     public static CommerceFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         CommerceFragment fragment = new CommerceFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
 
     public CommerceFragment() {
         // Required empty public constructor
@@ -79,7 +78,7 @@ public class CommerceFragment extends Fragment {
 
         mViewModel.getNewestProductLiveData().observe(this, responses -> {
             setUpAdapterNewest(responses);
-           // Log.d(TAG, "onChanged: " + responses);
+            // Log.d(TAG, "onChanged: " + responses);
         });
         mViewModel.getAllNewestProduct();
 
@@ -106,19 +105,19 @@ public class CommerceFragment extends Fragment {
         mBinding.executePendingBindings();
 
         mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.bestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.recycleCategory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
         return mBinding.getRoot();
     }
 
-    private void setUpSlider(){
+    private void setUpSlider() {
         HashMap<String, Integer> images = new HashMap<>();
-        images.put("image1",R.drawable.image1);
+        images.put("image1", R.drawable.image1);
         images.put("image2", R.drawable.image2);
         images.put("image3", R.drawable.image3);
-        for (String imageName: images.keySet()) {
+        for (String imageName : images.keySet()) {
             TextSliderView textSliderView = new TextSliderView(getActivity());
             textSliderView.description(imageName).image(images.get(imageName)).setScaleType(BaseSliderView.ScaleType.CenterCrop);
             mBinding.sliderLayout.addSlider(textSliderView);
@@ -129,12 +128,11 @@ public class CommerceFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main_menu, menu);
-
     }
 
-    public void setUpAdapterCategory(List<CategoriesItem> categoryList){
-        if (isAdded()){
-            if (mAdapterCategory == null){
+    public void setUpAdapterCategory(List<CategoriesItem> categoryList) {
+        if (isAdded()) {
+            if (mAdapterCategory == null) {
                 mAdapterCategory = new ProductAdapter(getContext(), categoryList);
                 mBinding.recycleCategory.setAdapter(mAdapterCategory);
                 Log.d(TAG, "setUpAdapterCategory: adapterCATEGORYcall");
@@ -145,35 +143,33 @@ public class CommerceFragment extends Fragment {
         }
     }
 
-    public void setUpAdapterNewest(List<Response> responseList){
-        if (isAdded()){
+    public void setUpAdapterNewest(List<Response> responseList) {
+        if (isAdded()) {
             if (mAdapterNewwst == null) {
                 mAdapterNewwst = new ProductAdapter(getContext(), responseList);
                 mBinding.newestProduct.setAdapter(mAdapterNewwst);
             }
-
             mAdapterNewwst.setItems(responseList);
             mAdapterNewwst.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
         }
     }
 
-    public void setUpAdapterMostvisited(List<Response> mostvisited){
-        if (isAdded()){
-            if (mAdapterMostViseted == null){
+    public void setUpAdapterMostvisited(List<Response> mostvisited) {
+        if (isAdded()) {
+            if (mAdapterMostViseted == null) {
                 mAdapterMostViseted = new ProductAdapter(getContext(), mostvisited);
                 mBinding.mostVisited.setAdapter(mAdapterMostViseted);
             }
             mAdapterMostViseted.setItems(mostvisited);
             mAdapterMostViseted.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
-
         }
     }
 
-    public void setUpAdapterBest(List<Response> best){
-        if (isAdded()){
-            if (mAdapterBest == null){
+    public void setUpAdapterBest(List<Response> best) {
+        if (isAdded()) {
+            if (mAdapterBest == null) {
                 mAdapterBest = new ProductAdapter(getContext(), best);
                 mBinding.bestProduct.setAdapter(mAdapterBest);
             }

@@ -36,7 +36,6 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
 
-
     public static ProductRepository getInstance() {
         if (sInstance == null)
             sInstance = new ProductRepository();
@@ -78,7 +77,6 @@ public class ProductRepository {
     public MutableLiveData<Response> getItemProductLiveData() {
         return mItemProductLiveData;
     }
-
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories(){
         Call<List<CategoriesItem>> call = mProductService.allProductCategories(mQueries);

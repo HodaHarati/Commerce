@@ -17,7 +17,7 @@ import java.util.Map;
 
 import retrofit2.Retrofit;
 
-public class SplashActivity extends AppCompatActivity{
+public class SplashActivity extends AppCompatActivity {
 
     private MutableLiveData<List<Response>> mNewestLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
@@ -39,8 +39,6 @@ public class SplashActivity extends AppCompatActivity{
         return mBestLiveData;
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +46,10 @@ public class SplashActivity extends AppCompatActivity{
 
 
         new Handler().postDelayed(() -> {
-            Intent intent= new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        },8000);
+        }, 8000);
     }
 
     /*public MutableLiveData<List<Response>> getNewestProduct(){

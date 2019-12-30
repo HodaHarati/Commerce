@@ -14,7 +14,6 @@ import com.example.commerce.R;
 import com.example.commerce.databinding.CategoryListBinding;
 import com.example.commerce.databinding.ItemListBinding;
 import com.example.commerce.model.CategoriesItem;
-import com.example.commerce.model.ImagesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.view.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
@@ -23,7 +22,6 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
-    //private List<Response> mItems = new ArrayList<>();
     private List mItems;
 
     public void setItems(List items) {
@@ -75,34 +73,6 @@ public class ProductAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mItems.size();
     }
-
-    /*public void setItems(List<Response> items) {
-        mItems = items;
-    }
-
-    public ProductAdapter(Context context, List<Response> items) {
-        mContext = context;
-        // mItems = items;
-    }*/
-
-/*
-    @NonNull
-    @Override
-    public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_list, parent, false);
-        return new ProductHolder(binding);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
-        holder.bind(mItems.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }*/
-
 
     public class ProductHolder extends RecyclerView.ViewHolder {
         ItemListBinding mListBinding;

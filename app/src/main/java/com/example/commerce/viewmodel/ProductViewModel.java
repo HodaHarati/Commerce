@@ -22,7 +22,6 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mBestLiveData;
     private MutableLiveData<Response> mItemProductLiveData;
 
-
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesLiveData() {
         return mAllCategoriesLiveData;
     }
@@ -43,7 +42,6 @@ public class ProductViewModel extends AndroidViewModel {
         return mItemProductLiveData;
     }
 
-
     public ProductViewModel(@NonNull Application application) {
         super(application);
         mProductRepository = ProductRepository.getInstance();
@@ -54,25 +52,24 @@ public class ProductViewModel extends AndroidViewModel {
         mItemProductLiveData = mProductRepository.getItemProductLiveData();
     }
 
-
-    public MutableLiveData<List<CategoriesItem>> getAllCategories(){
+    public MutableLiveData<List<CategoriesItem>> getAllCategories() {
         Log.d("ViewModel", "getAllCategories: " + mProductRepository.getAllCategories());
         return mProductRepository.getAllCategories();
     }
 
-    public MutableLiveData<List<Response>> getAllNewestProduct(){
-       return mProductRepository.getNewestProduct();
+    public MutableLiveData<List<Response>> getAllNewestProduct() {
+        return mProductRepository.getNewestProduct();
     }
 
-    public MutableLiveData<List<Response>> getMostVisitedProduct(){
+    public MutableLiveData<List<Response>> getMostVisitedProduct() {
         return mProductRepository.getMostVisitedProduct();
     }
 
-    public MutableLiveData<List<Response>> getBestProduct(){
+    public MutableLiveData<List<Response>> getBestProduct() {
         return mProductRepository.getBestProduct();
     }
 
-    public MutableLiveData<Response> getItem(int productid){
+    public MutableLiveData<Response> getItem(int productid) {
         return mProductRepository.getItem(productid);
     }
 }

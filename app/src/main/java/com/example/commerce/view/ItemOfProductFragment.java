@@ -30,12 +30,12 @@ import java.util.List;
 public class ItemOfProductFragment extends Fragment {
 
     public static final String ARG_PRODUCT_ID = "product_id";
+
     ProductRepository mProductRepository;
     ProductViewModel mViewModel;
-
     FragmentItemOfProductBinding mBinding;
+
     private int mProductId;
-    List<String> src;
 
     public static ItemOfProductFragment newInstance(int productId) {
         Bundle args = new Bundle();
@@ -44,7 +44,6 @@ public class ItemOfProductFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
 
     public ItemOfProductFragment() {
         // Required empty public constructor
@@ -68,7 +67,7 @@ public class ItemOfProductFragment extends Fragment {
                 }
                 int a = urls.size();
                 mBinding.itemSliderLayout.removeAllSliders();
-                for (String url: urls.keySet()) {
+                for (String url : urls.keySet()) {
                     TextSliderView textSliderView = new TextSliderView(getActivity());
                     textSliderView.image(urls.get(url)).setScaleType(BaseSliderView.ScaleType.CenterCrop);
                     mBinding.itemSliderLayout.addSlider(textSliderView);
@@ -96,27 +95,4 @@ public class ItemOfProductFragment extends Fragment {
         mBinding.executePendingBindings();
         return mBinding.getRoot();
     }
-
-
-
-    /*public List<String> updateViewPager() {
-        mItemLiveData = mProductRepository.getItem(mProductId);
-        mItemLiveData.observe(getActivity(), new Observer<Response>() {
-            @Override
-            public void onChanged(Response response) {
-                for (ImagesItem imagesItem: response.getImages()) {
-                    src.add(imagesItem.getSrc());
-                }
-            }
-        });
-        return src;
-    }*/
-/*
-    private class getItemOfProduct extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }*/
 }
