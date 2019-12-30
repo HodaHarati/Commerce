@@ -23,9 +23,10 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
 import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
+import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
-import com.example.commerce.viewmodel.CommerceFragmentViewModel;
+import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,12 +40,13 @@ public class CommerceFragment extends Fragment {
     private String TAG = "CommerceFragment";
 
     CommerceFragmentBinding mBinding;
-    CommerceFragmentViewModel mViewModel;
+    ProductViewModel mViewModel;
     ProductRepository productRepository;
 
     private ProductAdapter mAdapterNewwst;
     private ProductAdapter mAdapterMostViseted;
     private ProductAdapter mAdapterBest;
+    private ProductAdapter mAdapterCategory;
 
     public static CommerceFragment newInstance() {
         
@@ -64,11 +66,20 @@ public class CommerceFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this).get(CommerceFragmentViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+
+        mViewModel.getAllCategoriesLiveData().observe(this, new Observer<List<CategoriesItem>>() {
+            @Override
+            public void onChanged(List<CategoriesItem> categoriesItems) {
+                setUpAdapterCategory(categoriesItems);
+                Log.d(TAG, "onChanged: " + categoriesItems);
+            }
+        });
+        mViewModel.getAllCategories();
 
         mViewModel.getNewestProductLiveData().observe(this, responses -> {
             setUpAdapterNewest(responses);
-            Log.d(TAG, "onChanged: " + responses);
+           // Log.d(TAG, "onChanged: " + responses);
         });
         mViewModel.getAllNewestProduct();
 
@@ -97,6 +108,7 @@ public class CommerceFragment extends Fragment {
         mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
         mBinding.bestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mBinding.recycleCategory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
         return mBinding.getRoot();
     }
@@ -119,6 +131,20 @@ public class CommerceFragment extends Fragment {
         inflater.inflate(R.menu.main_menu, menu);
 
     }
+
+    public void setUpAdapterCategory(List<CategoriesItem> categoryList){
+        if (isAdded()){
+            if (mAdapterCategory == null){
+                mAdapterCategory = new ProductAdapter(getContext(), categoryList);
+                mBinding.recycleCategory.setAdapter(mAdapterCategory);
+                Log.d(TAG, "setUpAdapterCategory: adapterCATEGORYcall");
+            }
+            mAdapterCategory.setItems(categoryList);
+            mAdapterCategory.notifyDataSetChanged();
+            Log.d(TAG, "setUpAdapterCategory: hhhhhhh");
+        }
+    }
+
     public void setUpAdapterNewest(List<Response> responseList){
         if (isAdded()){
             if (mAdapterNewwst == null) {
@@ -131,6 +157,7 @@ public class CommerceFragment extends Fragment {
             Log.d(TAG, "setUpAdapter: called");
         }
     }
+
     public void setUpAdapterMostvisited(List<Response> mostvisited){
         if (isAdded()){
             if (mAdapterMostViseted == null){
@@ -143,7 +170,8 @@ public class CommerceFragment extends Fragment {
 
         }
     }
-    public void setUpAdapterBest (List<Response> best){
+
+    public void setUpAdapterBest(List<Response> best){
         if (isAdded()){
             if (mAdapterBest == null){
                 mAdapterBest = new ProductAdapter(getContext(), best);

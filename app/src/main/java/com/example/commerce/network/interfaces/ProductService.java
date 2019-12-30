@@ -1,5 +1,6 @@
 package com.example.commerce.network.interfaces;
 
+import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 
 import java.util.List;
@@ -11,6 +12,9 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 public interface ProductService {
+
+    @GET("products/categories")
+    Call<List<CategoriesItem>> allProductCategories (@QueryMap Map<String, String> queries);
 
     @GET("products")
     Call<List<Response>> getResponse(@QueryMap Map<String, String> queries);
@@ -24,6 +28,5 @@ public interface ProductService {
 
     @GET("products/{id}")
     Call<Response> item (@Path("id") String id, @QueryMap Map<String, String> queries);
-
 
 }

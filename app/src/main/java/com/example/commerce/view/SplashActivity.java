@@ -11,20 +11,11 @@ import com.example.commerce.R;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
 import com.example.commerce.network.interfaces.ProductService;
-import com.example.commerce.viewmodel.CommerceFragmentViewModel;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.commerce.network.ProductRepository.BASE_URL;
-import static com.example.commerce.network.ProductRepository.CONSUMER_KEY;
-import static com.example.commerce.network.ProductRepository.CONSUMER_SECRET;
 
 public class SplashActivity extends AppCompatActivity{
 

@@ -27,6 +27,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/txtnewst"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
                 <TextView
                     android:id="@+id/txtnewst"
                     android:layout_width="match_parent"
@@ -37,7 +47,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/newestProduct"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/recycle_category" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/newestProduct"

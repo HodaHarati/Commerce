@@ -19,7 +19,7 @@ import com.example.commerce.R;
 import com.example.commerce.databinding.FragmentItemOfProductBinding;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
-import com.example.commerce.viewmodel.CommerceFragmentViewModel;
+import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ public class ItemOfProductFragment extends Fragment {
 
     public static final String ARG_PRODUCT_ID = "product_id";
     ProductRepository mProductRepository;
-    CommerceFragmentViewModel mViewModel;
+    ProductViewModel mViewModel;
 
     FragmentItemOfProductBinding mBinding;
     private int mProductId;
@@ -55,12 +55,11 @@ public class ItemOfProductFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mProductId = getArguments().getInt(ARG_PRODUCT_ID);
         mProductRepository = ProductRepository.getInstance();
-        mViewModel = ViewModelProviders.of(this).get(CommerceFragmentViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         mViewModel.getItemProductLiveData().observe(this, new Observer<Response>() {
             @Override
             public void onChanged(Response response) {
                 initView(response);
-
 
                 HashMap<String, String> urls = new HashMap<>();
                 urls.clear();
@@ -82,8 +81,11 @@ public class ItemOfProductFragment extends Fragment {
     private void initView(Response response) {
         mBinding.productName.setText(response.getName());
         mBinding.txtProductDescription.setText(response.getDescription());
-        mBinding.txtOrginalPrice.setText(response.getRegularPrice());
-        mBinding.txtSalePrice.setText(response.getSalePrice());
+        mBinding.txtOrginalPrice.setText(response.getRegularPrice() + " تومان");
+        String salePrice = response.getSalePrice();
+        if (salePrice != null) {
+            mBinding.txtSalePrice.setText(response.getSalePrice() + " تومان");
+        }
     }
 
     @Override

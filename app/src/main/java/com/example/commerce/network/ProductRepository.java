@@ -1,7 +1,10 @@
 package com.example.commerce.network;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.interfaces.ProductService;
 
@@ -27,6 +30,7 @@ public class ProductRepository {
     private Map<String, String> mQueries;
     private Retrofit mRetrofit;
     private ProductService mProductService;
+    private MutableLiveData<List<CategoriesItem>> mAllCategoriesItemLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mNewestLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
@@ -52,7 +56,14 @@ public class ProductRepository {
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
     }
 
+    public MutableLiveData<List<CategoriesItem>> getAllCategoriesItemLiveData() {
+        Log.d(TAG, "getAllCategoriesItemLiveData: "+ mAllCategoriesItemLiveData);
+        return mAllCategoriesItemLiveData;
+
+    }
+
     public MutableLiveData<List<Response>> getNewestLiveData() {
+        Log.d(TAG, "getNewestLiveData: "+ mNewestLiveData);
         return mNewestLiveData;
     }
 
@@ -66,6 +77,24 @@ public class ProductRepository {
 
     public MutableLiveData<Response> getItemProductLiveData() {
         return mItemProductLiveData;
+    }
+
+
+    public MutableLiveData<List<CategoriesItem>> getAllCategories(){
+        Call<List<CategoriesItem>> call = mProductService.allProductCategories(mQueries);
+        call.enqueue(new Callback<List<CategoriesItem>>() {
+            @Override
+            public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
+                mAllCategoriesItemLiveData.postValue(response.body());
+                Log.d(TAG, "onResponse: calllllll");
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoriesItem>> call, Throwable t) {
+                Log.d(TAG, "onFailure: faaaaaaaaaaaaaaaaaaaa");
+            }
+        });
+        return mAllCategoriesItemLiveData;
     }
 
     public MutableLiveData<List<Response>> getNewestProduct(){
