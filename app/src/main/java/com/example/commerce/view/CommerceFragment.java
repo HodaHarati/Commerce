@@ -28,6 +28,7 @@ import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
 import com.example.commerce.viewmodel.ProductViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class CommerceFragment extends Fragment {
     private ProductAdapter mAdapterMostViseted;
     private ProductAdapter mAdapterBest;
     private ProductAdapter mAdapterCategory;
+    private List<String> mCategoriesName = new ArrayList<>();
 
     public static CommerceFragment newInstance() {
 
@@ -71,6 +73,9 @@ public class CommerceFragment extends Fragment {
             @Override
             public void onChanged(List<CategoriesItem> categoriesItems) {
                 setUpAdapterCategory(categoriesItems);
+                for (CategoriesItem category: categoriesItems) {
+                    mCategoriesName.add(category.getName());
+                }
                 Log.d(TAG, "onChanged: " + categoriesItems);
             }
         });

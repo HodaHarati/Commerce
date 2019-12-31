@@ -15,8 +15,11 @@ import com.example.commerce.databinding.CategoryListBinding;
 import com.example.commerce.databinding.ItemListBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
+import com.example.commerce.view.CategoryPagerActivity;
 import com.example.commerce.view.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter {
@@ -85,8 +88,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             mListBinding.imgListItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = ItemOfProductActivity.newIntent(mContext, mResponse.getId());
-                    mContext.startActivity(intent);
+                        Intent intent = ItemOfProductActivity.newIntent(mContext, mResponse.getId());
+                        mContext.startActivity(intent);
                 }
             });
         }
@@ -114,6 +117,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
 
+                        Intent intent = CategoryPagerActivity.newIntent(mContext);
+                        mContext.startActivity(intent);
                 }
             });
         }
