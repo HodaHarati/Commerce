@@ -9,10 +9,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.view.CategoryPagerFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryViewPagerAdapter extends FragmentPagerAdapter {
-    List<CategoriesItem> mCategoriesItems;
+    List<CategoriesItem> mCategoriesItems = new ArrayList<>();
 
     public CategoryViewPagerAdapter(@NonNull FragmentManager fm, List<CategoriesItem> categoriesItems) {
         super(fm);

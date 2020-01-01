@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.CategoryListBinding;
 import com.example.commerce.databinding.ItemListBinding;
+import com.example.commerce.databinding.ItemSubcategoryBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.view.CategoryPagerActivity;
@@ -41,6 +42,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             return 0;
         else if (mItems.get(position) instanceof Response)
             return 1;
+        /*else if (mItems.get(position) instanceof CategoriesItem)
+            return 2;*/
         return -1;
     }
 
@@ -57,6 +60,9 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 ItemListBinding binding1 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_list, parent, false);
                 viewHolder = new ProductHolder(binding1);
                 break;
+            /*case 2:
+                ItemSubcategoryBinding binding3 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_subcategory, parent, false);
+                viewHolder = new SubCategoryHolder(binding3);*/
             default:
                 viewHolder = null;
                 break;
@@ -70,6 +76,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             ((CategoryHolder) holder).bind((CategoriesItem) mItems.get(position));
         else if (holder.getItemViewType() == 1)
             ((ProductHolder) holder).bind((Response)(mItems.get(position)));
+        /*else if (holder.getItemViewType() == 2)
+            ((SubCategoryHolder) holder).bind((CategoriesItem) mItems.get(position));*/
     }
 
     @Override
@@ -101,7 +109,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
             Picasso.with(mContext)
                     .load(response.getImages().get(0).getSrc())
                     .placeholder(R.drawable.image_loading)
-                    .into(mListBinding.imgListItem);/////  aya kheili barname sangin nemishad???
+                    .into(mListBinding.imgListItem);
         }
     }
 
@@ -117,7 +125,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
 
-                        Intent intent = CategoryPagerActivity.newIntent(mContext);
+                        Intent intent = CategoryPagerActivity.newIntent(mContext, mCategoriesItem.getId());
                         mContext.startActivity(intent);
                 }
             });
@@ -128,4 +136,21 @@ public class ProductAdapter extends RecyclerView.Adapter {
             mCategoryListBinding.btnCategory.setText(mCategoriesItem.getName());
         }
     }
+/*
+    public class SubCategoryHolder extends RecyclerView.ViewHolder {
+        ItemSubcategoryBinding mItemSubcategoryBinding;
+        CategoriesItem mSubCategoriesItem;
+
+        public SubCategoryHolder(@NonNull ItemSubcategoryBinding itemView) {
+            super(itemView.getRoot());
+            mItemSubcategoryBinding = itemView;
+
+           // mItemSubcategoryBinding.cardSubcategory.setOnCli;
+
+        }
+        public void bind(CategoriesItem categoriesItem) {
+            mSubCategoriesItem = categoriesItem;
+            mItemSubcategoryBinding.txtSubcategory.setText(mSubCategoriesItem.getName());
+        }
+    }*/
 }

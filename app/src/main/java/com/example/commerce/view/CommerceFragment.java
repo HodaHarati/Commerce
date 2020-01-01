@@ -73,9 +73,9 @@ public class CommerceFragment extends Fragment {
             @Override
             public void onChanged(List<CategoriesItem> categoriesItems) {
                 setUpAdapterCategory(categoriesItems);
-                for (CategoriesItem category: categoriesItems) {
+                /*for (CategoriesItem category: categoriesItems) {
                     mCategoriesName.add(category.getName());
-                }
+                }*/
                 Log.d(TAG, "onChanged: " + categoriesItems);
             }
         });
