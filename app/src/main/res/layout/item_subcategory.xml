@@ -25,7 +25,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
-                tools:text="@tools:sample/full_names" />
+                tools:text="@tools:sample/full_names"/>
 
             <View
                 android:layout_width="match_parent"
