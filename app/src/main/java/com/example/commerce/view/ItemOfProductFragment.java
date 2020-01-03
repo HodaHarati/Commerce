@@ -96,7 +96,7 @@ public class ItemOfProductFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager()
-                                .beginTransaction().replace(R.id.container_fragment, CartFragment.newInstance())
+                                .beginTransaction().replace(R.id.container_fragment, CartFragment.newInstance(mProductId))
                                 .addToBackStack(CartFragment.TAG)
                                 .commit();
             }

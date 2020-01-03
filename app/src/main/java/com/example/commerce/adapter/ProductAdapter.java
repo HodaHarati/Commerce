@@ -27,23 +27,29 @@ public class ProductAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List mItems;
+    private String mTag;
 
     public void setItems(List items) {
         mItems = items;
     }
 
-    public ProductAdapter(Context context, List items) {
+    public void setTag(String tag) {
+        mTag = tag;
+    }
+
+    public ProductAdapter(Context context, List items, String tag) {
         mContext = context;
         mItems = items;
+        mTag = tag;
     }
 
     public int getItemViewType(int position) {
-        if (mItems.get(position) instanceof CategoriesItem)
+        if (mItems.get(position) instanceof CategoriesItem && mTag.equals("CommerceFragment"))
             return 0;
-        else if (mItems.get(position) instanceof Response)
+        else if (mItems.get(position) instanceof Response && mTag.equals("CommerceFragment"))
             return 1;
-        /*else if (mItems.get(position) instanceof CategoriesItem)
-            return 2;*/
+        else if (mItems.get(position) instanceof Response && mTag.equals("CategoryPagerFragment"))
+            return 2;
         return -1;
     }
 
@@ -60,9 +66,10 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 ItemListBinding binding1 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_list, parent, false);
                 viewHolder = new ProductHolder(binding1);
                 break;
-            /*case 2:
+            case 2:
                 ItemSubcategoryBinding binding3 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_subcategory, parent, false);
-                viewHolder = new SubCategoryHolder(binding3);*/
+                viewHolder = new SubCategoryHolder(binding3);
+                break;
             default:
                 viewHolder = null;
                 break;
@@ -76,8 +83,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             ((CategoryHolder) holder).bind((CategoriesItem) mItems.get(position));
         else if (holder.getItemViewType() == 1)
             ((ProductHolder) holder).bind((Response)(mItems.get(position)));
-        /*else if (holder.getItemViewType() == 2)
-            ((SubCategoryHolder) holder).bind((CategoriesItem) mItems.get(position));*/
+        else if (holder.getItemViewType() == 2)
+            ((SubCategoryHolder) holder).bind((Response) mItems.get(position));
     }
 
     @Override
@@ -136,10 +143,10 @@ public class ProductAdapter extends RecyclerView.Adapter {
             mCategoryListBinding.btnCategory.setText(mCategoriesItem.getName());
         }
     }
-/*
+
     public class SubCategoryHolder extends RecyclerView.ViewHolder {
         ItemSubcategoryBinding mItemSubcategoryBinding;
-        CategoriesItem mSubCategoriesItem;
+        Response mResponse;
 
         public SubCategoryHolder(@NonNull ItemSubcategoryBinding itemView) {
             super(itemView.getRoot());
@@ -148,9 +155,13 @@ public class ProductAdapter extends RecyclerView.Adapter {
            // mItemSubcategoryBinding.cardSubcategory.setOnCli;
 
         }
-        public void bind(CategoriesItem categoriesItem) {
-            mSubCategoriesItem = categoriesItem;
-            mItemSubcategoryBinding.txtSubcategory.setText(mSubCategoriesItem.getName());
+        public void bind(Response response) {
+            mResponse = response;
+            mItemSubcategoryBinding.txtSubcategory.setText(mResponse.getName());
+            Picasso.with(mContext)
+                    .load(mResponse.getImages().get(0).getSrc())
+                    .placeholder(R.drawable.image_loading)
+                    .into(mItemSubcategoryBinding.imgSubcategory);
         }
-    }*/
+    }
 }

@@ -23,6 +23,7 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mBestLiveData;
     private MutableLiveData<Response> mItemProductLiveData;
     private MutableLiveData<List<Response>> mSubCategoryLiveData;
+    private List<Response> mListResponseOfCart;
 
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesLiveData() {
         return mAllCategoriesLiveData;
@@ -93,4 +94,10 @@ public class ProductViewModel extends AndroidViewModel {
             }
         return list;
     }
+
+    /*public MutableLiveData<List<Response>> getProductOfCart(List<Integer> listProductId) {
+        for (int productID: listProductId) {
+            mListResponseOfCart.add(getItem(productID))
+        }
+    }*/
 }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,6 +15,7 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_cart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </androidx.core.widget.NestedScrollView>
@@ -21,7 +23,12 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/colorAccent" />
+            android:background="@color/colorAccent"
+            android:layout_alignParentBottom="true"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/fragment_cart_buttom_nav_menu"
+            android:layout_centerVertical="true"/>
 
-</LinearLayout>
+</RelativeLayout>
+</layout>

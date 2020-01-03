@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.commerce.R;
-import com.example.commerce.adapter.CategoryAndSearchAdapter;
+import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
 import com.example.commerce.model.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
@@ -33,7 +33,7 @@ public class CategoryPagerFragment extends Fragment implements CommerceFragment.
     private FragmentCategoryPagerBinding mBinding;
     private int mCategoryId;
     private ProductViewModel mViewModel;
-    private CategoryAndSearchAdapter mCategoryAndSearchAdapter;
+    private ProductAdapter mProductAdapter;
     CommerceFragment commerceFragment = new CommerceFragment();
     /*private ProductRepository mProductRepository;
     private List<Response> mListProductInCategory;*/
@@ -80,13 +80,14 @@ public class CategoryPagerFragment extends Fragment implements CommerceFragment.
         mProductRepository.getListProductInCategoriy(mCategoryId);
         mProductRepository.setCallbackListproductInCategory(this);*/
         if (isAdded()) {
-            if (mCategoryAndSearchAdapter == null) {
-                mCategoryAndSearchAdapter = new CategoryAndSearchAdapter(getContext(), listLiveData);
-                mBinding.subcategoryRecycler.setAdapter(mCategoryAndSearchAdapter);
+            if (mProductAdapter == null) {
+                mProductAdapter = new ProductAdapter(getContext(), listLiveData, TAG);
+                mBinding.subcategoryRecycler.setAdapter(mProductAdapter);
 
             }
-            mCategoryAndSearchAdapter.setResponseList(listLiveData);
-            mCategoryAndSearchAdapter.notifyDataSetChanged();
+            mProductAdapter.setTag(TAG);
+            mProductAdapter.setItems(listLiveData);
+            mProductAdapter.notifyDataSetChanged();
 
         }
     }

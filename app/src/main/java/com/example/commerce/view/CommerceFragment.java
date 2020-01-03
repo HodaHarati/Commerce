@@ -23,11 +23,9 @@ import android.view.ViewGroup;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
-import com.example.commerce.adapter.CategoryAndSearchAdapter;
 import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
-import com.example.commerce.databinding.ItemSubcategoryBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
@@ -54,7 +52,7 @@ public class CommerceFragment extends Fragment {
     private ProductAdapter mAdapterMostViseted;
     private ProductAdapter mAdapterBest;
     private ProductAdapter mAdapterCategory;
-    private CategoryAndSearchAdapter mSearchAdapter;
+   // private CategoryAndSearchAdapter mSearchAdapter;
     private List<String> mCategoriesName = new ArrayList<>();
     private List<Response> mResponseList = new ArrayList<>();
     private searchCallbacks mSearchCallbacks;
@@ -167,12 +165,10 @@ public class CommerceFragment extends Fragment {
         });
     }
 
-
-
     public void setUpAdapterCategory(List<CategoriesItem> categoryList) {
         if (isAdded()) {
             if (mAdapterCategory == null) {
-                mAdapterCategory = new ProductAdapter(getContext(), categoryList);
+                mAdapterCategory = new ProductAdapter(getContext(), categoryList, TAG);
                 mBinding.recycleCategory.setAdapter(mAdapterCategory);
                 Log.d(TAG, "setUpAdapterCategory: adapterCATEGORYcall");
             }
@@ -185,7 +181,7 @@ public class CommerceFragment extends Fragment {
     public void setUpAdapterNewest(List<Response> responseList) {
         if (isAdded()) {
             if (mAdapterNewwst == null) {
-                mAdapterNewwst = new ProductAdapter(getContext(), responseList);
+                mAdapterNewwst = new ProductAdapter(getContext(), responseList, TAG);
                 mBinding.newestProduct.setAdapter(mAdapterNewwst);
             }
             mAdapterNewwst.setItems(responseList);
@@ -197,7 +193,7 @@ public class CommerceFragment extends Fragment {
     public void setUpAdapterMostvisited(List<Response> mostvisited) {
         if (isAdded()) {
             if (mAdapterMostViseted == null) {
-                mAdapterMostViseted = new ProductAdapter(getContext(), mostvisited);
+                mAdapterMostViseted = new ProductAdapter(getContext(), mostvisited, TAG);
                 mBinding.mostVisited.setAdapter(mAdapterMostViseted);
             }
             mAdapterMostViseted.setItems(mostvisited);
@@ -209,7 +205,7 @@ public class CommerceFragment extends Fragment {
     public void setUpAdapterBest(List<Response> best) {
         if (isAdded()) {
             if (mAdapterBest == null) {
-                mAdapterBest = new ProductAdapter(getContext(), best);
+                mAdapterBest = new ProductAdapter(getContext(), best, TAG);
                 mBinding.bestProduct.setAdapter(mAdapterBest);
             }
             mAdapterBest.setItems(best);
