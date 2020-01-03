@@ -11,6 +11,7 @@ import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductViewModel extends AndroidViewModel {
@@ -81,5 +82,15 @@ public class ProductViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Response>> getListProductInCategoriy(int categoryid) {
         return mProductRepository.getListProductInCategory(categoryid);
+    }
+
+    public List<Response> searchProduct(List<Response> listProduct, String query) {
+
+            List<Response> list = new ArrayList<>();
+            for (Response response : listProduct) {
+                if (response.getName().contains(query.trim())) ;
+                list.add(response);
+            }
+        return list;
     }
 }

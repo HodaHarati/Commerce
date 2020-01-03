@@ -35,7 +35,7 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
-   private MutableLiveData<List<Response>> mSubCategoriesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Response>> mSubCategoriesLiveData = new MutableLiveData<>();
     //private ProductRepositoryCallbackListproductInCategory mCallbackListproductInCategory;
 
     public static ProductRepository getInstance() {

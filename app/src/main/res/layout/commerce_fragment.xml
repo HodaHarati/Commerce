@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.CommerceFragment">
@@ -113,5 +113,5 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

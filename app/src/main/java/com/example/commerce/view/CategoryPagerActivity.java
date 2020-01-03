@@ -3,16 +3,10 @@ package com.example.commerce.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.example.commerce.R;
 import com.example.commerce.adapter.CategoryViewPagerAdapter;
 import com.example.commerce.databinding.ActivityCategoryPagerBinding;

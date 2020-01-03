@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -15,14 +16,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
+import com.example.commerce.adapter.CategoryAndSearchAdapter;
 import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
+import com.example.commerce.databinding.FragmentCategoryPagerBinding;
+import com.example.commerce.databinding.ItemSubcategoryBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.network.ProductRepository;
@@ -41,6 +46,7 @@ public class CommerceFragment extends Fragment {
     private String TAG = "CommerceFragment";
 
     CommerceFragmentBinding mBinding;
+    FragmentCategoryPagerBinding mCategoryPagerBinding;
     ProductViewModel mViewModel;
     ProductRepository productRepository;
 
@@ -48,7 +54,10 @@ public class CommerceFragment extends Fragment {
     private ProductAdapter mAdapterMostViseted;
     private ProductAdapter mAdapterBest;
     private ProductAdapter mAdapterCategory;
+    private CategoryAndSearchAdapter mSearchAdapter;
     private List<String> mCategoriesName = new ArrayList<>();
+    private List<Response> mResponseList = new ArrayList<>();
+    private searchCallbacks mSearchCallbacks;
 
     public static CommerceFragment newInstance() {
 
@@ -61,6 +70,10 @@ public class CommerceFragment extends Fragment {
 
     public CommerceFragment() {
         // Required empty public constructor
+    }
+
+    public void setSearchCallbacks(searchCallbacks searchCallbacks) {
+        mSearchCallbacks = searchCallbacks;
     }
 
     @Override
@@ -83,6 +96,7 @@ public class CommerceFragment extends Fragment {
 
         mViewModel.getNewestProductLiveData().observe(this, responses -> {
             setUpAdapterNewest(responses);
+            mResponseList.addAll(responses);
             // Log.d(TAG, "onChanged: " + responses);
         });
         mViewModel.getAllNewestProduct();
@@ -133,7 +147,27 @@ public class CommerceFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mSearchCallbacks.setUpAdapter(mViewModel.searchProduct(mResponseList,query));
+                searchView.onActionViewCollapsed();
+                return true;  // true if you want to handle code by self
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                mSearchCallbacks.setUpAdapter(mViewModel.searchProduct(mResponseList, newText));
+                return true;
+            }
+
+        });
     }
+
+
 
     public void setUpAdapterCategory(List<CategoriesItem> categoryList) {
         if (isAdded()) {
@@ -182,5 +216,9 @@ public class CommerceFragment extends Fragment {
             mAdapterBest.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
         }
+    }
+
+    public interface searchCallbacks{
+        void setUpAdapter(List<Response> listResponse);
     }
 }

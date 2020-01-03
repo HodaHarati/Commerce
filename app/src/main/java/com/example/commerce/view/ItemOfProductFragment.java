@@ -22,7 +22,6 @@ import com.example.commerce.network.ProductRepository;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +64,6 @@ public class ItemOfProductFragment extends Fragment {
                 for (int i = 0; i < response.getImages().size(); i++) {
                     urls.put(String.valueOf(i), response.getImages().get(i).getSrc());
                 }
-                int a = urls.size();
                 mBinding.itemSliderLayout.removeAllSliders();
                 for (String url : urls.keySet()) {
                     TextSliderView textSliderView = new TextSliderView(getActivity());
@@ -93,6 +91,17 @@ public class ItemOfProductFragment extends Fragment {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_of_product, container, false);
         mBinding.executePendingBindings();
+
+        mBinding.btnAddtocart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager()
+                                .beginTransaction().replace(R.id.container_fragment, CartFragment.newInstance())
+                                .addToBackStack(CartFragment.TAG)
+                                .commit();
+            }
+        });
+
         return mBinding.getRoot();
     }
 }
