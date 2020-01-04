@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.commerce.R;
 import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
+import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
 
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryPagerFragment extends Fragment implements CommerceFragment.searchCallbacks{ //implements ProductRepository.ProductRepositoryCallbackListproductInCategory {
+public class CategoryPagerFragment extends Fragment{
 
     private String TAG = "CategoryPagerFragment";
 
@@ -34,9 +35,6 @@ public class CategoryPagerFragment extends Fragment implements CommerceFragment.
     private int mCategoryId;
     private ProductViewModel mViewModel;
     private ProductAdapter mProductAdapter;
-    CommerceFragment commerceFragment = new CommerceFragment();
-    /*private ProductRepository mProductRepository;
-    private List<Response> mListProductInCategory;*/
 
     public static CategoryPagerFragment newInstance(int categoryId) {
         Bundle args = new Bundle();
@@ -55,15 +53,13 @@ public class CategoryPagerFragment extends Fragment implements CommerceFragment.
         super.onCreate(savedInstanceState);
         mCategoryId = getArguments().getInt(ARG_CATEGORY_ID);
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        mViewModel.getSubCategoryLiveData().observe(this, new Observer<List<Response>>() {
+        mViewModel.getSubCategoryLiveData().observe(this, new Observer<List<CategoriesItem>>() {
             @Override
-            public void onChanged(List<Response> responses) {
-                setUpSubCategoryAdapter(responses);
+            public void onChanged(List<CategoriesItem> categoriesItems) {
+                setUpSubCategoryAdapter(categoriesItems);
             }
         });
-        mViewModel.getListProductInCategoriy(mCategoryId);
-
-        commerceFragment.setSearchCallbacks(this);
+        mViewModel.getSubCategories(mCategoryId);
     }
 
     @Override
@@ -75,10 +71,7 @@ public class CategoryPagerFragment extends Fragment implements CommerceFragment.
         mBinding.subcategoryRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         return mBinding.getRoot();
     }
-    public void setUpSubCategoryAdapter(List<Response> listLiveData) {
-        /*mProductRepository = ProductRepository.getInstance();
-        mProductRepository.getListProductInCategoriy(mCategoryId);
-        mProductRepository.setCallbackListproductInCategory(this);*/
+    public void setUpSubCategoryAdapter(List<CategoriesItem> listLiveData) {
         if (isAdded()) {
             if (mProductAdapter == null) {
                 mProductAdapter = new ProductAdapter(getContext(), listLiveData, TAG);
@@ -88,19 +81,6 @@ public class CategoryPagerFragment extends Fragment implements CommerceFragment.
             mProductAdapter.setTag(TAG);
             mProductAdapter.setItems(listLiveData);
             mProductAdapter.notifyDataSetChanged();
-
         }
     }
-
-    @Override
-    public void setUpAdapter(List<Response> listResponse) {
-        setUpSubCategoryAdapter(listResponse);
-    }
-/*
-    @Override
-    public void onResponse(List<Response> productInCategory) {
-        mListProductInCategory = productInCategory;
-        setUpSubCategoryAdapter();
-    }*/
-
 }

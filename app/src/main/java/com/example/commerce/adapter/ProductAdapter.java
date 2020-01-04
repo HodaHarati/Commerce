@@ -14,6 +14,7 @@ import com.example.commerce.R;
 import com.example.commerce.databinding.CategoryListBinding;
 import com.example.commerce.databinding.ItemListBinding;
 import com.example.commerce.databinding.ItemSubcategoryBinding;
+import com.example.commerce.databinding.SubcategoryBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.view.CategoryPagerActivity;
@@ -48,7 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
             return 0;
         else if (mItems.get(position) instanceof Response && mTag.equals("CommerceFragment"))
             return 1;
-        else if (mItems.get(position) instanceof Response && mTag.equals("CategoryPagerFragment"))
+        else if (mItems.get(position) instanceof CategoriesItem && mTag.equals("CategoryPagerFragment"))
             return 2;
         return -1;
     }
@@ -67,7 +68,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 viewHolder = new ProductHolder(binding1);
                 break;
             case 2:
-                ItemSubcategoryBinding binding3 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_subcategory, parent, false);
+                SubcategoryBinding binding3 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.subcategory, parent, false);
                 viewHolder = new SubCategoryHolder(binding3);
                 break;
             default:
@@ -84,7 +85,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
         else if (holder.getItemViewType() == 1)
             ((ProductHolder) holder).bind((Response)(mItems.get(position)));
         else if (holder.getItemViewType() == 2)
-            ((SubCategoryHolder) holder).bind((Response) mItems.get(position));
+            ((SubCategoryHolder) holder).bind((CategoriesItem) mItems.get(position));
     }
 
     @Override
@@ -145,23 +146,23 @@ public class ProductAdapter extends RecyclerView.Adapter {
     }
 
     public class SubCategoryHolder extends RecyclerView.ViewHolder {
-        ItemSubcategoryBinding mItemSubcategoryBinding;
-        Response mResponse;
+        SubcategoryBinding mSubcategoryBinding;
+        CategoriesItem mCategoriesItem;
 
-        public SubCategoryHolder(@NonNull ItemSubcategoryBinding itemView) {
+        public SubCategoryHolder(@NonNull SubcategoryBinding itemView) {
             super(itemView.getRoot());
-            mItemSubcategoryBinding = itemView;
+            mSubcategoryBinding = itemView;
 
            // mItemSubcategoryBinding.cardSubcategory.setOnCli;
 
         }
-        public void bind(Response response) {
-            mResponse = response;
-            mItemSubcategoryBinding.txtSubcategory.setText(mResponse.getName());
-            Picasso.with(mContext)
+        public void bind(CategoriesItem categoriesItem) {
+            mCategoriesItem = categoriesItem;
+            mSubcategoryBinding.txtSubcategory.setText(mCategoriesItem.getName());
+            /*Picasso.with(mContext)
                     .load(mResponse.getImages().get(0).getSrc())
                     .placeholder(R.drawable.image_loading)
-                    .into(mItemSubcategoryBinding.imgSubcategory);
+                    .into(mItemSubcategoryBinding.imgSubcategory);*/
         }
     }
 }

@@ -28,7 +28,6 @@ import com.example.commerce.databinding.CommerceFragmentBinding;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
-import com.example.commerce.network.ProductRepository;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.ArrayList;
@@ -46,13 +45,12 @@ public class CommerceFragment extends Fragment {
     CommerceFragmentBinding mBinding;
     FragmentCategoryPagerBinding mCategoryPagerBinding;
     ProductViewModel mViewModel;
-    ProductRepository productRepository;
+//    ProductRepository productRepository;
 
     private ProductAdapter mAdapterNewwst;
     private ProductAdapter mAdapterMostViseted;
     private ProductAdapter mAdapterBest;
     private ProductAdapter mAdapterCategory;
-   // private CategoryAndSearchAdapter mSearchAdapter;
     private List<String> mCategoriesName = new ArrayList<>();
     private List<Response> mResponseList = new ArrayList<>();
     private searchCallbacks mSearchCallbacks;
@@ -90,16 +88,15 @@ public class CommerceFragment extends Fragment {
                 Log.d(TAG, "onChanged: " + categoriesItems);
             }
         });
-        mViewModel.getAllCategories();
+        //mViewModel.getAllCategories();  // this method go to splash activity
 
         mViewModel.getNewestProductLiveData().observe(this, responses -> {
             setUpAdapterNewest(responses);
             mResponseList.addAll(responses);
             // Log.d(TAG, "onChanged: " + responses);
         });
-        mViewModel.getAllNewestProduct();
 
-        mViewModel.getMostVisitedLiveData().observe(this, responses -> setUpAdapterMostvisited(responses));
+        mViewModel.getMostVisitedLiveData().observe(this, responses -> setUpAdapterMostVisited(responses));
         mViewModel.getMostVisitedProduct();
 
         mViewModel.getBestLiveData().observe(this, new Observer<List<Response>>() {
@@ -108,9 +105,8 @@ public class CommerceFragment extends Fragment {
                 setUpAdapterBest(responses);
             }
         });
-        mViewModel.getBestProduct();
 
-        productRepository = ProductRepository.getInstance();
+//        productRepository = ProductRepository.getInstance();
         setHasOptionsMenu(true);
     }
 
@@ -190,7 +186,7 @@ public class CommerceFragment extends Fragment {
         }
     }
 
-    public void setUpAdapterMostvisited(List<Response> mostvisited) {
+    public void setUpAdapterMostVisited(List<Response> mostvisited) {
         if (isAdded()) {
             if (mAdapterMostViseted == null) {
                 mAdapterMostViseted = new ProductAdapter(getContext(), mostvisited, TAG);

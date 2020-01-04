@@ -35,8 +35,8 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Response>> mSubCategoriesLiveData = new MutableLiveData<>();
-    //private ProductRepositoryCallbackListproductInCategory mCallbackListproductInCategory;
+    private MutableLiveData<List<CategoriesItem>> mSubCategoriesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Response>> mListSubCategoriesLiveData = new MutableLiveData<>();
 
     public static ProductRepository getInstance() {
         if (sInstance == null)
@@ -56,10 +56,6 @@ public class ProductRepository {
 
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
     }
-
-    /*public void setCallbackListproductInCategory(ProductRepositoryCallbackListproductInCategory callbackListproductInCategory) {
-        mCallbackListproductInCategory = callbackListproductInCategory;
-    }*/
 
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesItemLiveData() {
         Log.d(TAG, "getAllCategoriesItemLiveData: " + mAllCategoriesItemLiveData);
@@ -84,12 +80,19 @@ public class ProductRepository {
         return mItemProductLiveData;
     }
 
-    public MutableLiveData<List<Response>> getSubCategoriesLiveData() {
+    public MutableLiveData<List<CategoriesItem>> getSubCategoriesLiveData() {
         return mSubCategoriesLiveData;
     }
 
+    public MutableLiveData<List<Response>> getListSubCategoriesLiveData() {
+        return mListSubCategoriesLiveData;
+    }
+
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
-        Call<List<CategoriesItem>> call = mProductService.allProductCategories(mQueries);
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("parent", "0");
+        Call<List<CategoriesItem>> call = mProductService.Categories(map);
         call.enqueue(new Callback<List<CategoriesItem>>() {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
@@ -106,22 +109,29 @@ public class ProductRepository {
     }
 
     public MutableLiveData<List<Response>> getNewestProduct() {
-        mQueries.put("orderby", "date");
-        Call<List<Response>> call = mProductService.getResponse(mQueries);
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("orderby", "date");
+        Call<List<Response>> call = mProductService.getResponse(map);
         getEnqueue(call, mNewestLiveData);
         return mNewestLiveData;
     }
 
     public MutableLiveData<List<Response>> getMostVisitedProduct() {
-        mQueries.put("orderby", "popularity");
-        Call<List<Response>> call = mProductService.mostVisitedProducts(mQueries);
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("orderby", "popularity");
+
+        Call<List<Response>> call = mProductService.mostVisitedProducts(map);
         getEnqueue(call, mMostvisitedLiveData);
         return mMostvisitedLiveData;
     }
 
     public MutableLiveData<List<Response>> getBestProduct() {
-        mQueries.put("orderby", "rating");
-        Call<List<Response>> call = mProductService.bestProduct(mQueries);
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("orderby", "rating");
+        Call<List<Response>> call = mProductService.bestProduct(map);
         getEnqueue(call, mBestLiveData);
         return mBestLiveData;
     }
@@ -141,6 +151,7 @@ public class ProductRepository {
     }
 
     public MutableLiveData<Response> getItem(int productid) {
+       // mItemProductLiveData.setValue(new Response());
         Call<Response> call = mProductService.item(String.valueOf(productid), mQueries);
         call.enqueue(new Callback<Response>() {
             @Override
@@ -156,32 +167,29 @@ public class ProductRepository {
         return mItemProductLiveData;
     }
 
-    public MutableLiveData<List<Response>> getListProductInCategory(int categoryid){
-        Call<List<Response>> call = mProductService.listProductInCategory(mQueries, String.valueOf(categoryid));
-        getEnqueue(call, mSubCategoriesLiveData);
+    public MutableLiveData<List<CategoriesItem>> getSubCategories(int parent){
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        Call<List<CategoriesItem>> call = mProductService.subCategories(map, String.valueOf(parent));
+        call.enqueue(new Callback<List<CategoriesItem>>() {
+            @Override
+            public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
+                mSubCategoriesLiveData.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoriesItem>> call, Throwable t) {
+
+            }
+        });
         return mSubCategoriesLiveData;
     }
 
-/*    public void getListProductInCategoriy(int categoryid) {
-        Call<List<Response>> call = mProductService.listProductInCategory(mQueries, String.valueOf(categoryid));
-        call.enqueue(new Callback<List<Response>>() {
-            @Override
-            public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
-                Log.d(TAG, "onResponse: " + response.message());
-                if (response.isSuccessful()) {
-                    List<Response> items = response.body();
-                    mCallbackListproductInCategory.onResponse(items);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Response>> call, Throwable t) {
-                Log.d(TAG, t.getMessage(), t);
-            }
-        });
+    public MutableLiveData<List<Response>> getListProductInCategory(int categoryid){
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        Call<List<Response>> call = mProductService.listProductInCategory(map, String.valueOf(categoryid));
+        getEnqueue(call, mListSubCategoriesLiveData);
+        return mListSubCategoriesLiveData;
     }
-
-    public interface ProductRepositoryCallbackListproductInCategory {
-        void onResponse(List<Response> productInCategory);
-    }*/
 }

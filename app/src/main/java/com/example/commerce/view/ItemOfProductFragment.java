@@ -1,6 +1,7 @@
 package com.example.commerce.view;
 
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,8 @@ public class ItemOfProductFragment extends Fragment {
 
     public static final String ARG_PRODUCT_ID = "product_id";
 
-    ProductRepository mProductRepository;
     ProductViewModel mViewModel;
     FragmentItemOfProductBinding mBinding;
-
     private int mProductId;
 
     public static ItemOfProductFragment newInstance(int productId) {
@@ -52,22 +52,18 @@ public class ItemOfProductFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProductId = getArguments().getInt(ARG_PRODUCT_ID);
-        mProductRepository = ProductRepository.getInstance();
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+
         mViewModel.getItemProductLiveData().observe(this, new Observer<Response>() {
             @Override
             public void onChanged(Response response) {
                 initView(response);
 
-                HashMap<String, String> urls = new HashMap<>();
-                urls.clear();
-                for (int i = 0; i < response.getImages().size(); i++) {
-                    urls.put(String.valueOf(i), response.getImages().get(i).getSrc());
-                }
                 mBinding.itemSliderLayout.removeAllSliders();
-                for (String url : urls.keySet()) {
+                for (int i = 0; i < response.getImages().size(); i++) {
+                    String url = response.getImages().get(i).getSrc();
                     TextSliderView textSliderView = new TextSliderView(getActivity());
-                    textSliderView.image(urls.get(url)).setScaleType(BaseSliderView.ScaleType.CenterCrop);
+                    textSliderView.image(url).setScaleType(BaseSliderView.ScaleType.FitCenterCrop);
                     mBinding.itemSliderLayout.addSlider(textSliderView);
                 }
             }
@@ -77,11 +73,19 @@ public class ItemOfProductFragment extends Fragment {
 
     private void initView(Response response) {
         mBinding.productName.setText(response.getName());
-        mBinding.txtProductDescription.setText(response.getDescription());
+        mBinding.txtProductDescription.setText(convertHtmlToText(response.getDescription()));
         mBinding.txtOrginalPrice.setText(response.getRegularPrice() + " تومان");
         String salePrice = response.getSalePrice();
-        if (salePrice != null) {
-            mBinding.txtSalePrice.setText(response.getSalePrice() + " تومان");
+        if (salePrice != null && !salePrice.isEmpty()) {
+            mBinding.txtSalePrice.setText(salePrice + " تومان");
+        }
+    }
+
+    private String convertHtmlToText(String html) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT).toString();
+        } else {
+            return Html.fromHtml(html).toString();
         }
     }
 
