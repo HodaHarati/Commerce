@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.CategoryPagerFragment">
-
+        tools:context=".view.ProductOfSubcategoryFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/subcategory_recycler"
+            android:id="@+id/recycler_product_of_subcategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:listitem="@layout/subcategory">
+            tools:listitem="@layout/item_product_subcategory">
 
         </androidx.recyclerview.widget.RecyclerView>
+
 
     </FrameLayout>
 </layout>

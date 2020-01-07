@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.view.CategoryPagerFragment;
@@ -12,8 +13,8 @@ import com.example.commerce.view.CategoryPagerFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryViewPagerAdapter extends FragmentPagerAdapter {
-    List<CategoriesItem> mCategoriesItems = new ArrayList<>();
+public class CategoryViewPagerAdapter extends FragmentStatePagerAdapter {
+    List<CategoriesItem> mCategoriesItems;
 
     public CategoryViewPagerAdapter(@NonNull FragmentManager fm, List<CategoriesItem> categoriesItems) {
         super(fm);
@@ -39,5 +40,10 @@ public class CategoryViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mCategoriesItems.get(position).getName();
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 }

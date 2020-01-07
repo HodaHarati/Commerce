@@ -13,14 +13,14 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight=".8"
             android:backgroundTint="@color/colorPrimaryDark">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tablayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimaryDark"
                 app:tabRippleColor="#ffffff"
                 app:tabSelectedTextColor="#ffffff"
@@ -30,13 +30,13 @@
             </com.google.android.material.tabs.TabLayout>
 
         </androidx.viewpager.widget.ViewPager>
-
+<!--
         <FrameLayout
             android:id="@+id/container_fragment_category_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9.2">
-        </FrameLayout>
+        </FrameLayout>-->
 
     </LinearLayout>
 </layout>

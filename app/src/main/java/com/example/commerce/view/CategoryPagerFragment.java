@@ -53,13 +53,14 @@ public class CategoryPagerFragment extends Fragment{
         super.onCreate(savedInstanceState);
         mCategoryId = getArguments().getInt(ARG_CATEGORY_ID);
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        mViewModel.getSubCategoryLiveData().observe(this, new Observer<List<CategoriesItem>>() {
+        mViewModel.getSubCategories(mCategoryId).observe(this, new Observer<List<CategoriesItem>>() {
             @Override
             public void onChanged(List<CategoriesItem> categoriesItems) {
                 setUpSubCategoryAdapter(categoriesItems);
             }
         });
-        mViewModel.getSubCategories(mCategoryId);
+//        mViewModel.getSubCategories(mCategoryId);
+
     }
 
     @Override
@@ -67,20 +68,20 @@ public class CategoryPagerFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category_pager, container, false);
-        mBinding.executePendingBindings();
         mBinding.subcategoryRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         return mBinding.getRoot();
     }
+
     public void setUpSubCategoryAdapter(List<CategoriesItem> listLiveData) {
         if (isAdded()) {
             if (mProductAdapter == null) {
                 mProductAdapter = new ProductAdapter(getContext(), listLiveData, TAG);
                 mBinding.subcategoryRecycler.setAdapter(mProductAdapter);
-
+            } else {
+                mProductAdapter.setItems(listLiveData);
+                mProductAdapter.notifyDataSetChanged();
             }
             mProductAdapter.setTag(TAG);
-            mProductAdapter.setItems(listLiveData);
-            mProductAdapter.notifyDataSetChanged();
         }
     }
 }

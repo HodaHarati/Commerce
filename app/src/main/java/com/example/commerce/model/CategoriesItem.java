@@ -15,6 +15,9 @@ public class CategoriesItem{
 	@SerializedName("slug")
 	private String slug;
 
+	@SerializedName("image")
+	private ImagesItem mImagesItem;
+
 	public void setName(String name){
 		this.name = name;
 	}
@@ -37,6 +40,14 @@ public class CategoriesItem{
 
 	public String getSlug(){
 		return slug;
+	}
+
+	public ImagesItem getImagesItem() {
+		return mImagesItem;
+	}
+
+	public void setImagesItem(ImagesItem imagesItem) {
+		mImagesItem = imagesItem;
 	}
 
 	@Override

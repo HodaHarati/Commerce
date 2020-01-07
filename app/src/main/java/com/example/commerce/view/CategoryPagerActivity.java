@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,18 +44,18 @@ public class CategoryPagerActivity extends AppCompatActivity {
         mViewModel.getAllCategoriesLiveData().observe(this, categoriesItems -> setUpViewPager(categoriesItems));
        // mViewModel.getAllCategories();  // causes crash
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment_category_pager);
+/*        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment_category_pager);
         if (fragment == null)
             getSupportFragmentManager().beginTransaction()
                                         .add(R.id.container_fragment_category_pager, CategoryPagerFragment.newInstance(mCategoryid))
-                                        .commit();
+                                        .commit();*/
     }
 
     public void setUpViewPager(List<CategoriesItem> categoriesItems) {
         if (mCategoryViewPagerAdapter == null) {
             mCategoryViewPagerAdapter = new CategoryViewPagerAdapter(getSupportFragmentManager(), categoriesItems);
             mBinding.viewPager.setAdapter(mCategoryViewPagerAdapter);
-            mBinding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mBinding.tablayout));
+//            mBinding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mBinding.tablayout));
         }else {
             mCategoryViewPagerAdapter.setCategoriesItems(categoriesItems);
             mCategoryViewPagerAdapter.notifyDataSetChanged();

@@ -35,7 +35,7 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<CategoriesItem>> mSubCategoriesLiveData = new MutableLiveData<>();
+    //private MutableLiveData<List<CategoriesItem>> mSubCategoriesLiveData;
     private MutableLiveData<List<Response>> mListSubCategoriesLiveData = new MutableLiveData<>();
 
     public static ProductRepository getInstance() {
@@ -80,9 +80,9 @@ public class ProductRepository {
         return mItemProductLiveData;
     }
 
-    public MutableLiveData<List<CategoriesItem>> getSubCategoriesLiveData() {
+   /* public MutableLiveData<List<CategoriesItem>> getSubCategoriesLiveData() {
         return mSubCategoriesLiveData;
-    }
+    }*/
 
     public MutableLiveData<List<Response>> getListSubCategoriesLiveData() {
         return mListSubCategoriesLiveData;
@@ -102,7 +102,7 @@ public class ProductRepository {
 
             @Override
             public void onFailure(Call<List<CategoriesItem>> call, Throwable t) {
-                Log.d(TAG, "onFailure: faaaaaaaaaaaaaaaaaaaa");
+                Log.e(TAG, "onFailure: " + t.getMessage(), t);
             }
         });
         return mAllCategoriesItemLiveData;
@@ -122,7 +122,7 @@ public class ProductRepository {
         map.putAll(mQueries);
         map.put("orderby", "popularity");
 
-        Call<List<Response>> call = mProductService.mostVisitedProducts(map);
+        Call<List<Response>> call = mProductService.getResponse(map);
         getEnqueue(call, mMostvisitedLiveData);
         return mMostvisitedLiveData;
     }
@@ -131,7 +131,7 @@ public class ProductRepository {
         HashMap<String, String> map = new HashMap<>();
         map.putAll(mQueries);
         map.put("orderby", "rating");
-        Call<List<Response>> call = mProductService.bestProduct(map);
+        Call<List<Response>> call = mProductService.getResponse(map);
         getEnqueue(call, mBestLiveData);
         return mBestLiveData;
     }
@@ -140,7 +140,10 @@ public class ProductRepository {
         call.enqueue(new Callback<List<Response>>() {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
+                if (response.isSuccessful())
                 liveData.postValue(response.body());
+
+
             }
 
             @Override
@@ -161,7 +164,6 @@ public class ProductRepository {
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
-
             }
         });
         return mItemProductLiveData;
@@ -169,27 +171,41 @@ public class ProductRepository {
 
     public MutableLiveData<List<CategoriesItem>> getSubCategories(int parent){
         HashMap<String, String> map = new HashMap<>();
+        map.put("parent", String.valueOf(parent));
         map.putAll(mQueries);
-        Call<List<CategoriesItem>> call = mProductService.subCategories(map, String.valueOf(parent));
+        MutableLiveData<List<CategoriesItem>> subCategoriesLiveData = new MutableLiveData<>();
+        Call<List<CategoriesItem>> call = mProductService.subCategories(map);
         call.enqueue(new Callback<List<CategoriesItem>>() {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
-                mSubCategoriesLiveData.postValue(response.body());
+                subCategoriesLiveData.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<List<CategoriesItem>> call, Throwable t) {
 
+                Log.e(TAG, "onFailure: subCategory", t);
             }
         });
-        return mSubCategoriesLiveData;
+        return subCategoriesLiveData;
     }
 
     public MutableLiveData<List<Response>> getListProductInCategory(int categoryid){
         HashMap<String, String> map = new HashMap<>();
+        map.put("categoryId", String.valueOf(categoryid));
         map.putAll(mQueries);
         Call<List<Response>> call = mProductService.listProductInCategory(map, String.valueOf(categoryid));
-        getEnqueue(call, mListSubCategoriesLiveData);
+        call.enqueue(new Callback<List<Response>>() {
+            @Override
+            public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
+                mListSubCategoriesLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Response>> call, Throwable t) {
+
+            }
+        });
         return mListSubCategoriesLiveData;
     }
 }

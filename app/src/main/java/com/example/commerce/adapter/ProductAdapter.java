@@ -2,6 +2,7 @@ package com.example.commerce.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.CategoryListBinding;
 import com.example.commerce.databinding.ItemListBinding;
+import com.example.commerce.databinding.ItemProductSubcategoryBinding;
 import com.example.commerce.databinding.ItemSubcategoryBinding;
 import com.example.commerce.databinding.SubcategoryBinding;
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
 import com.example.commerce.view.CategoryPagerActivity;
 import com.example.commerce.view.ItemOfProductActivity;
+import com.example.commerce.view.ProductOfSubcategoryActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,6 +54,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             return 1;
         else if (mItems.get(position) instanceof CategoriesItem && mTag.equals("CategoryPagerFragment"))
             return 2;
+        else if (mItems.get(position) instanceof Response && mTag.equals("ProductOfSubcategory"))
+            return 3;
         return -1;
     }
 
@@ -71,6 +76,10 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 SubcategoryBinding binding3 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.subcategory, parent, false);
                 viewHolder = new SubCategoryHolder(binding3);
                 break;
+            case 3:
+                ItemProductSubcategoryBinding binding4 = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.item_product_subcategory, parent, false);
+                viewHolder = new ProductOfSubCategoryHolder(binding4);
+                break;
             default:
                 viewHolder = null;
                 break;
@@ -86,6 +95,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             ((ProductHolder) holder).bind((Response)(mItems.get(position)));
         else if (holder.getItemViewType() == 2)
             ((SubCategoryHolder) holder).bind((CategoriesItem) mItems.get(position));
+        else if (holder.getItemViewType() == 3)
+            ((ProductOfSubCategoryHolder) holder).bind((Response) mItems.get(position));
     }
 
     @Override
@@ -153,16 +164,48 @@ public class ProductAdapter extends RecyclerView.Adapter {
             super(itemView.getRoot());
             mSubcategoryBinding = itemView;
 
-           // mItemSubcategoryBinding.cardSubcategory.setOnCli;
+           mSubcategoryBinding.txtSubcategory.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                    Intent intent = ProductOfSubcategoryActivity.newIntent(mContext, mCategoriesItem.getId());
+                    mContext.startActivity(intent);
+               }
+           });
 
         }
         public void bind(CategoriesItem categoriesItem) {
             mCategoriesItem = categoriesItem;
             mSubcategoryBinding.txtSubcategory.setText(mCategoriesItem.getName());
-            /*Picasso.with(mContext)
-                    .load(mResponse.getImages().get(0).getSrc())
+/*            Picasso.with(mContext)
+                    .load(mCategoriesItem.getImagesItem().getSrc())
                     .placeholder(R.drawable.image_loading)
-                    .into(mItemSubcategoryBinding.imgSubcategory);*/
+                    .into(mSubcategoryBinding.imgSubcategory);
+        }*/
+        }
+    }
+
+    public class ProductOfSubCategoryHolder extends RecyclerView.ViewHolder {
+        ItemProductSubcategoryBinding mProductSubcategoryBinding;
+        Response mResponse;
+
+        public ProductOfSubCategoryHolder(@NonNull ItemProductSubcategoryBinding itemView) {
+            super(itemView.getRoot());
+            mProductSubcategoryBinding = itemView;
+
+            //listener
+        }
+        public void bind(Response response) {
+            mResponse = response;
+            mProductSubcategoryBinding.txtNameProductSubcategory.setText(response.getName());
+            mProductSubcategoryBinding.txtOrginalpriceProductSubcategory.setText(response.getRegularPrice() + " تومان ");
+           /* String price = response.getSalePrice();
+            if (price != null && !price.isEmpty()) {
+                mProductSubcategoryBinding.txtSalePriceProductSubcategory.setText(response.getSalePrice() + " تومان ");
+            }*/
+            Picasso.with(mContext)
+                    .load(response.getImages().get(0).getSrc())
+                    .placeholder(R.drawable.image_loading)
+                    .into(mProductSubcategoryBinding.imgProductSubcategory);
         }
     }
 }

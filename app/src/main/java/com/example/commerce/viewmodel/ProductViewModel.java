@@ -22,7 +22,7 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mMostVisitedLiveData;
     private MutableLiveData<List<Response>> mBestLiveData;
     private MutableLiveData<Response> mItemProductLiveData;
-    private MutableLiveData<List<CategoriesItem>> mSubCategoryLiveData;
+   // private MutableLiveData<List<CategoriesItem>> mSubCategoryLiveData;
     private MutableLiveData<List<Response>> mListSubCategoriesLiveData;
     private List<Response> mListResponseOfCart;
 
@@ -46,9 +46,10 @@ public class ProductViewModel extends AndroidViewModel {
         return mItemProductLiveData;
     }
 
-    public MutableLiveData<List<CategoriesItem>> getSubCategoryLiveData() {
-        return mSubCategoryLiveData;
-    }
+    /*public MutableLiveData<List<CategoriesItem>> getSubCategoryLiveData(int parent) {
+
+        return mProductRepository.getSubCategories(parent);
+    }*/
 
     public MutableLiveData<List<Response>> getListSubCategoriesLiveData() {
         return mListSubCategoriesLiveData;
@@ -62,7 +63,7 @@ public class ProductViewModel extends AndroidViewModel {
         mMostVisitedLiveData = mProductRepository.getMostvisitedLiveData();
         mBestLiveData = mProductRepository.getBestLiveData();
         mItemProductLiveData = mProductRepository.getItemProductLiveData();
-        mSubCategoryLiveData = mProductRepository.getSubCategoriesLiveData();
+        //mSubCategoryLiveData = mProductRepository.getSubCategoriesLiveData();
         mListSubCategoriesLiveData = mProductRepository.getListSubCategoriesLiveData();
     }
 
@@ -83,7 +84,7 @@ public class ProductViewModel extends AndroidViewModel {
         return mProductRepository.getBestProduct();
     }
 
-    public MutableLiveData<List<Response>> getListProductInCategoriy(int categoryid) {
+    public MutableLiveData<List<Response>> getListProductInCategory(int categoryid) {
         return mProductRepository.getListProductInCategory(categoryid);
     }
 
