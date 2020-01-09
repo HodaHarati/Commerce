@@ -142,8 +142,6 @@ public class ProductRepository {
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful())
                 liveData.postValue(response.body());
-
-
             }
 
             @Override
@@ -192,18 +190,19 @@ public class ProductRepository {
 
     public MutableLiveData<List<Response>> getListProductInCategory(int categoryid){
         HashMap<String, String> map = new HashMap<>();
-        map.put("categoryId", String.valueOf(categoryid));
         map.putAll(mQueries);
-        Call<List<Response>> call = mProductService.listProductInCategory(map, String.valueOf(categoryid));
+        map.put("category", String.valueOf(categoryid));
+        Call<List<Response>> call = mProductService.listProductInCategory(map);
         call.enqueue(new Callback<List<Response>>() {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
-                mListSubCategoriesLiveData.setValue(response.body());
+                if (response.isSuccessful())
+                    mListSubCategoriesLiveData.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Response>> call, Throwable t) {
-
+                Log.e(TAG, t.getMessage(), t );
             }
         });
         return mListSubCategoriesLiveData;

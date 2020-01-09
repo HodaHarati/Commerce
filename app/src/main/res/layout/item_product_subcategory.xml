@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="1.5dp"
-        app:cardElevation="4dp"
+        app:cardElevation="8dp"
         app:cardBackgroundColor="#ffffff">
 
     <RelativeLayout
@@ -16,15 +16,15 @@
 
         <ImageView
             android:id="@+id/img_product_subcategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             tools:src="@tools:sample/avatars"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/txt_name_product_subcategory"
             android:layout_width="match_parent"
-            android:layout_height="79.9dp"
+            android:layout_height="79.5dp"
             android:layout_toLeftOf="@id/img_product_subcategory"
             tools:text="@tools:sample/last_names"
             android:gravity="right"
@@ -32,7 +32,7 @@
         <View
             android:id="@+id/view_product_subcategory"
             android:layout_width="match_parent"
-            android:layout_height=".1dp"
+            android:layout_height=".5dp"
             android:layout_marginRight="4dp"
             android:layout_marginLeft="4dp"
             android:layout_toLeftOf="@id/img_product_subcategory"
@@ -42,7 +42,8 @@
             android:id="@+id/txt_orginalprice_product_subcategory"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_margin="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
             android:gravity="left"
             android:layout_toLeftOf="@id/img_product_subcategory"
             android:layout_below="@id/view_product_subcategory"
@@ -50,8 +51,9 @@
         <TextView
             android:id="@+id/txt_sale_price_product_subcategory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
             android:gravity="left"
             android:layout_toLeftOf="@id/img_product_subcategory"
             android:layout_below="@id/txt_orginalprice_product_subcategory"

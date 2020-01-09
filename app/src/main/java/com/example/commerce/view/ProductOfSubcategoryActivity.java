@@ -2,6 +2,7 @@ package com.example.commerce.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,21 +19,21 @@ public class ProductOfSubcategoryActivity extends SingleFragmentActivity {
         intent.putExtra(EXTRA_CATEGORY_ID, categoryId);
         return intent;
     }
-
     @Override
     public Fragment createFragment() {
-        int categoryid = getIntent().getIntExtra(EXTRA_CATEGORY_ID, 0);
-        return ProductOfSubcategoryFragment.newInstance(categoryid);
+        int categoryId = getIntent().getIntExtra(EXTRA_CATEGORY_ID, 0);
+        return ProductOfSubcategoryFragment.newInstance(categoryId);
     }
 
     @Override
     public int getLayoutResource() {
-        return R.layout.activity_prodyct_of_subcategory;
+        return R.layout.single_fragment_activit;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_prodyct_of_subcategory);
+       // setContentView(R.layout.single_fragment_activit);
+
     }
 }

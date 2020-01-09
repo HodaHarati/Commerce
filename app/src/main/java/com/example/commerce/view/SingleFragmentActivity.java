@@ -13,7 +13,6 @@ import com.example.commerce.R;
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     public abstract Fragment createFragment();
-
     @LayoutRes
     public abstract int getLayoutResource();
 

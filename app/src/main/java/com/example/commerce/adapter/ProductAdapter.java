@@ -197,11 +197,11 @@ public class ProductAdapter extends RecyclerView.Adapter {
         public void bind(Response response) {
             mResponse = response;
             mProductSubcategoryBinding.txtNameProductSubcategory.setText(response.getName());
-            mProductSubcategoryBinding.txtOrginalpriceProductSubcategory.setText(response.getRegularPrice() + " تومان ");
-           /* String price = response.getSalePrice();
+            mProductSubcategoryBinding.txtOrginalpriceProductSubcategory.setText(mResponse.getRegularPrice() + " تومان ");
+            String price = response.getSalePrice();
             if (price != null && !price.isEmpty()) {
                 mProductSubcategoryBinding.txtSalePriceProductSubcategory.setText(response.getSalePrice() + " تومان ");
-            }*/
+            }
             Picasso.with(mContext)
                     .load(response.getImages().get(0).getSrc())
                     .placeholder(R.drawable.image_loading)
