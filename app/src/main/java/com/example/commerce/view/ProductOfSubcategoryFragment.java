@@ -51,13 +51,12 @@ public class ProductOfSubcategoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mCategoryId = getArguments().getInt(ARG_CATEGORY_ID);
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        mViewModel.getListSubCategoriesLiveData().observe(this, new Observer<List<Response>>() {
+        mViewModel.getListProductInCategory(mCategoryId).observe(this, new Observer<List<Response>>() {
             @Override
             public void onChanged(List<Response> responseList) {
                 setUpListSubCategory(responseList);
             }
         });
-        mViewModel.getListProductInCategory(mCategoryId);
     }
 
     @Override

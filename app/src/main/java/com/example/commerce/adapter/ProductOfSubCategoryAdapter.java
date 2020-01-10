@@ -7,9 +7,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.commerce.model.Response;
+
+import java.util.List;
+
 public class ProductOfSubCategoryAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
+    private List<Response> mProduct;
 
 
     @NonNull
@@ -25,7 +30,7 @@ public class ProductOfSubCategoryAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mProduct.size();
     }
 
     public class ProductOfSubCategoryHolder extends RecyclerView.ViewHolder{

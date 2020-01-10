@@ -1,6 +1,8 @@
 package com.example.commerce.view;
 
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -78,6 +80,13 @@ public class ItemOfProductFragment extends Fragment {
         String salePrice = response.getSalePrice();
         if (salePrice != null && !salePrice.isEmpty()) {
             mBinding.txtSalePrice.setText(salePrice + " تومان");
+            mBinding.txtSalePrice.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+            mBinding.txtOrginalPrice.setTextColor(Color.RED);
+            mBinding.txtOrginalPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else {
+            mBinding.txtOrginalPrice.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+            mBinding.txtSalePrice.setVisibility(View.GONE);
         }
     }
 

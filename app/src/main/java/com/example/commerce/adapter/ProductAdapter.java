@@ -2,11 +2,14 @@ package com.example.commerce.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -201,6 +204,12 @@ public class ProductAdapter extends RecyclerView.Adapter {
             String price = response.getSalePrice();
             if (price != null && !price.isEmpty()) {
                 mProductSubcategoryBinding.txtSalePriceProductSubcategory.setText(response.getSalePrice() + " تومان ");
+                mProductSubcategoryBinding.txtSalePriceProductSubcategory.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+                mProductSubcategoryBinding.txtOrginalpriceProductSubcategory.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                mProductSubcategoryBinding.txtOrginalpriceProductSubcategory.setTextColor(Color.RED);
+            }else {
+                mProductSubcategoryBinding.txtOrginalpriceProductSubcategory.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+                mProductSubcategoryBinding.txtSalePriceProductSubcategory.setVisibility(View.GONE);
             }
             Picasso.with(mContext)
                     .load(response.getImages().get(0).getSrc())

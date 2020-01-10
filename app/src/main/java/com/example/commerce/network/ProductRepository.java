@@ -35,8 +35,6 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
-    //private MutableLiveData<List<CategoriesItem>> mSubCategoriesLiveData;
-    private MutableLiveData<List<Response>> mListSubCategoriesLiveData = new MutableLiveData<>();
 
     public static ProductRepository getInstance() {
         if (sInstance == null)
@@ -78,14 +76,6 @@ public class ProductRepository {
 
     public MutableLiveData<Response> getItemProductLiveData() {
         return mItemProductLiveData;
-    }
-
-   /* public MutableLiveData<List<CategoriesItem>> getSubCategoriesLiveData() {
-        return mSubCategoriesLiveData;
-    }*/
-
-    public MutableLiveData<List<Response>> getListSubCategoriesLiveData() {
-        return mListSubCategoriesLiveData;
     }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
@@ -189,6 +179,7 @@ public class ProductRepository {
     }
 
     public MutableLiveData<List<Response>> getListProductInCategory(int categoryid){
+        MutableLiveData<List<Response>> listSubCategoriesLiveData = new MutableLiveData<>();
         HashMap<String, String> map = new HashMap<>();
         map.putAll(mQueries);
         map.put("category", String.valueOf(categoryid));
@@ -197,7 +188,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful())
-                    mListSubCategoriesLiveData.setValue(response.body());
+                    listSubCategoriesLiveData.setValue(response.body());
             }
 
             @Override
@@ -205,6 +196,6 @@ public class ProductRepository {
                 Log.e(TAG, t.getMessage(), t );
             }
         });
-        return mListSubCategoriesLiveData;
+        return listSubCategoriesLiveData;
     }
 }
