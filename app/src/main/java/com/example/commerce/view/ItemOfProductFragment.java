@@ -30,7 +30,7 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemOfProductFragment extends Fragment {
+public class ItemOfProductFragment extends NetworkFragment {
 
     public static final String ARG_PRODUCT_ID = "product_id";
 

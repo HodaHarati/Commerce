@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CommerceFragment extends Fragment {
+public class CommerceFragment extends NetworkFragment{
 
     private String TAG = "CommerceFragment";
 

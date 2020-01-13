@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryPagerFragment extends Fragment{
+public class CategoryPagerFragment extends NetworkFragment{
 
     private String TAG = "CategoryPagerFragment";
 

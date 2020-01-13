@@ -11,27 +11,27 @@ import com.example.commerce.model.Response;
 
 import java.util.List;
 
-public class ProductOfSubCategoryAdapter extends RecyclerView.Adapter {
+public class ProductOfSubCategoryAdapter extends RecyclerView.Adapter<ProductOfSubCategoryAdapter.ProductOfSubCategoryHolder> {
 
     private Context mContext;
     private List<Response> mProduct;
 
-
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductOfSubCategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductOfSubCategoryHolder holder, int position) {
 
     }
 
     @Override
     public int getItemCount() {
-        return mProduct.size();
+        return 0;
     }
+
 
     public class ProductOfSubCategoryHolder extends RecyclerView.ViewHolder{
 

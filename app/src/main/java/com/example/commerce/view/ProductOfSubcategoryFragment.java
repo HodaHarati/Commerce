@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductOfSubcategoryFragment extends Fragment {
+public class ProductOfSubcategoryFragment extends NetworkFragment {
 
     public static final String ARG_CATEGORY_ID = "categoryId";
     private String TAG = "ProductOfSubcategory";

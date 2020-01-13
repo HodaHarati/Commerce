@@ -131,12 +131,12 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful())
-                liveData.postValue(response.body());
+                     liveData.postValue(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Response>> call, Throwable t) {
-
+                Log.e(TAG, t.getMessage(), t );
             }
         });
     }
@@ -147,11 +147,13 @@ public class ProductRepository {
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                mItemProductLiveData.postValue(response.body());
+                if (response.isSuccessful())
+                    mItemProductLiveData.postValue(response.body());
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t );
             }
         });
         return mItemProductLiveData;
@@ -166,7 +168,8 @@ public class ProductRepository {
         call.enqueue(new Callback<List<CategoriesItem>>() {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
-                subCategoriesLiveData.setValue(response.body());
+                if (response.isSuccessful())
+                    subCategoriesLiveData.setValue(response.body());
             }
 
             @Override

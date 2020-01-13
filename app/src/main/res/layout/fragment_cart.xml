@@ -10,25 +10,22 @@
     android:orientation="vertical"
     android:layout_margin="4dp"
     tools:context=".view.CartFragment">
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_cart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_cart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:background="@color/colorAccent"
             android:layout_alignParentBottom="true"
             app:itemIconTint="@android:color/white"
             app:itemTextColor="@android:color/white"
-            app:menu="@menu/fragment_cart_buttom_nav_menu"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:text="خرید خود را نهایی کنید"
+            android:textStyle="bold"/>
 
 </RelativeLayout>
 </layout>

@@ -22,13 +22,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends NetworkFragment {
 
     public static final String TAG = "CartFragment";
     public static final String ARG_PRODUCT_ID = "productId";
 
     private FragmentCartBinding mBinding;
-    private ProductAdapter mProductAdapter;
+
     private int mProductid;
     private List<Integer> mListProductId = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductid= getArguments().getInt(ARG_PRODUCT_ID);
+        mProductid = getArguments().getInt(ARG_PRODUCT_ID);
         mListProductId.add(mProductid);
     }
 

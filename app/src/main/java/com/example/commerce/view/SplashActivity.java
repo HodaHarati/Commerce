@@ -29,5 +29,6 @@ public class SplashActivity extends AppCompatActivity {
         mViewModel.getAllCategories();
         mViewModel.getAllNewestProduct();
         mViewModel.getBestProduct();
+        mViewModel.getMostVisitedProduct();
     }
 }
