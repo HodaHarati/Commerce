@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.commerce.R;
-import com.example.commerce.adapter.ProductAdapter;
+import com.example.commerce.adapter.AllProductAdapter;
 import com.example.commerce.databinding.FragmentProductOfSubcategoryBinding;
 import com.example.commerce.model.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
@@ -28,10 +28,9 @@ import java.util.List;
 public class ProductOfSubcategoryFragment extends NetworkFragment {
 
     public static final String ARG_CATEGORY_ID = "categoryId";
-    private String TAG = "ProductOfSubcategory";
     private FragmentProductOfSubcategoryBinding mBinding;
     private ProductViewModel mViewModel;
-    private ProductAdapter mAdapter;
+    private AllProductAdapter mAdapter;
     private int mCategoryId;
 
     public static ProductOfSubcategoryFragment newInstance(int categoryid) {
@@ -71,13 +70,12 @@ public class ProductOfSubcategoryFragment extends NetworkFragment {
     public void setUpListSubCategory( List<Response> responseList) {
         if (isAdded()){
             if (mAdapter == null){
-                mAdapter = new ProductAdapter(getContext(), responseList, TAG);
+                mAdapter = new AllProductAdapter(getContext(),responseList);
                 mBinding.recyclerProductOfSubcategory.setAdapter(mAdapter);
             }else {
-                mAdapter.setItems(responseList);
+                mAdapter.setResponseList(responseList);
                 mAdapter.notifyDataSetChanged();
             }
-            mAdapter.setTag(TAG);
         }
     }
 

@@ -24,7 +24,8 @@ import android.view.ViewGroup;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
-import com.example.commerce.adapter.ProductAdapter;
+import com.example.commerce.adapter.ListAdapter;
+import com.example.commerce.adapter.CategoryAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
 import com.example.commerce.model.CategoriesItem;
@@ -48,10 +49,10 @@ public class CommerceFragment extends NetworkFragment{
     ProductViewModel mViewModel;
 //    ProductRepository productRepository;
 
-    private ProductAdapter mAdapterNewwst;
-    private ProductAdapter mAdapterMostViseted;
-    private ProductAdapter mAdapterBest;
-    private ProductAdapter mAdapterCategory;
+    private ListAdapter mAdapterNewwst;
+    private ListAdapter mAdapterMostViseted;
+    private ListAdapter mAdapterBest;
+    private CategoryAdapter mAdapterCategory;
     private List<String> mCategoriesName = new ArrayList<>();
     private List<Response> mResponseList = new ArrayList<>();
     private searchCallbacks mSearchCallbacks;
@@ -98,7 +99,7 @@ public class CommerceFragment extends NetworkFragment{
         });
 
         mViewModel.getMostVisitedLiveData().observe(this, responses -> setUpAdapterMostVisited(responses));
-        mViewModel.getMostVisitedProduct();
+       // mViewModel.getMostVisitedProduct();
 
         mViewModel.getBestLiveData().observe(this, new Observer<List<Response>>() {
             @Override
@@ -107,7 +108,6 @@ public class CommerceFragment extends NetworkFragment{
             }
         });
 
-//        productRepository = ProductRepository.getInstance();
         setHasOptionsMenu(true);
     }
 
@@ -183,11 +183,11 @@ public class CommerceFragment extends NetworkFragment{
     public void setUpAdapterCategory(List<CategoriesItem> categoryList) {
         if (isAdded()) {
             if (mAdapterCategory == null) {
-                mAdapterCategory = new ProductAdapter(getContext(), categoryList, TAG);
+                mAdapterCategory = new CategoryAdapter(getContext(), categoryList);
                 mBinding.recycleCategory.setAdapter(mAdapterCategory);
                 Log.d(TAG, "setUpAdapterCategory: adapterCATEGORYcall");
             }
-            mAdapterCategory.setItems(categoryList);
+            mAdapterCategory.setCategoriesItemList(categoryList);
             mAdapterCategory.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapterCategory: hhhhhhh");
         }
@@ -196,10 +196,10 @@ public class CommerceFragment extends NetworkFragment{
     public void setUpAdapterNewest(List<Response> responseList) {
         if (isAdded()) {
             if (mAdapterNewwst == null) {
-                mAdapterNewwst = new ProductAdapter(getContext(), responseList, TAG);
+                mAdapterNewwst = new ListAdapter(getContext(), responseList);
                 mBinding.newestProduct.setAdapter(mAdapterNewwst);
             }
-            mAdapterNewwst.setItems(responseList);
+            mAdapterNewwst.setResponseList(responseList);
             mAdapterNewwst.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
         }
@@ -208,10 +208,10 @@ public class CommerceFragment extends NetworkFragment{
     public void setUpAdapterMostVisited(List<Response> mostvisited) {
         if (isAdded()) {
             if (mAdapterMostViseted == null) {
-                mAdapterMostViseted = new ProductAdapter(getContext(), mostvisited, TAG);
+                mAdapterMostViseted = new ListAdapter(getContext(), mostvisited);
                 mBinding.mostVisited.setAdapter(mAdapterMostViseted);
             }
-            mAdapterMostViseted.setItems(mostvisited);
+            mAdapterMostViseted.setResponseList(mostvisited);
             mAdapterMostViseted.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
         }
@@ -220,10 +220,10 @@ public class CommerceFragment extends NetworkFragment{
     public void setUpAdapterBest(List<Response> best) {
         if (isAdded()) {
             if (mAdapterBest == null) {
-                mAdapterBest = new ProductAdapter(getContext(), best, TAG);
+                mAdapterBest = new ListAdapter(getContext(), best);
                 mBinding.bestProduct.setAdapter(mAdapterBest);
             }
-            mAdapterBest.setItems(best);
+            mAdapterBest.setResponseList(best);
             mAdapterBest.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
         }

@@ -75,19 +75,19 @@ public class AllProductFragment extends Fragment {
         if (isAdded()) {
             mAdapter = new AllProductAdapter(getContext(), responseList);
             mBinding.recyclerAllProduct.setAdapter(mAdapter);
-            mBinding.recyclerAllProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
+           /* mBinding.recyclerAllProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                     if (mBinding.recyclerAllProduct.getScrollState() == mBinding.recyclerAllProduct.SCROLL_STATE_SETTLING && page <10)
                         page++;
-                        mViewModel.getAllProduct(typeOfList,page);
+                    mViewModel.getAllProduct(typeOfList, page);
                 }
 
                 @Override
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
                 }
-            });
+            });*/
         }else {
             mAdapter.setResponseList(responseList);
             mAdapter.notifyDataSetChanged();

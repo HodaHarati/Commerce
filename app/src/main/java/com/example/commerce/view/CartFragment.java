@@ -16,12 +16,10 @@ import android.view.ViewGroup;
 
 import com.example.commerce.R;
 import com.example.commerce.adapter.CartAdapter;
-import com.example.commerce.adapter.ProductAdapter;
 import com.example.commerce.databinding.FragmentCartBinding;
 import com.example.commerce.model.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

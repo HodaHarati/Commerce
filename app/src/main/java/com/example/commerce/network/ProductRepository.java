@@ -42,7 +42,7 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
-
+   // private MutableLiveData<List<Response>> mProductList = new MutableLiveData<>();
 
     public static ProductRepository getInstance(Application application) {
         if (sInstance == null)
@@ -89,6 +89,10 @@ public class ProductRepository {
     public MutableLiveData<Response> getItemProductLiveData() {
         return mItemProductLiveData;
     }
+
+    /*public MutableLiveData<List<Response>> getProductList() {
+        return mProductList;
+    }*/
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
         HashMap<String, String> map = new HashMap<>();
@@ -143,10 +147,10 @@ public class ProductRepository {
         map.putAll(mQueries);
         map.put("orderby", order);
         map.put("page", String.valueOf(page));
-        MutableLiveData<List<Response>> mProductList = new MutableLiveData<>();
+        MutableLiveData<List<Response>> productList = new MutableLiveData<>();
         Call<List<Response>> call = mProductService.getResponse(map);
-        getEnqueue(call, mProductList);
-        return mProductList;
+        getEnqueue(call, productList);
+        return productList;
     }
 
     private void getEnqueue(Call<List<Response>> call, MutableLiveData<List<Response>> liveData) {
@@ -154,7 +158,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful())
-                     liveData.postValue(response.body());
+                     liveData.setValue(response.body());
             }
 
             @Override
@@ -171,7 +175,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 if (response.isSuccessful())
-                    mItemProductLiveData.postValue(response.body());
+                    mItemProductLiveData.setValue(response.body());
             }
 
             @Override

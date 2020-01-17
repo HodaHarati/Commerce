@@ -15,10 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.commerce.R;
-import com.example.commerce.adapter.ProductAdapter;
+import com.example.commerce.adapter.SubCategoryAdapter;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
 import com.example.commerce.model.CategoriesItem;
-import com.example.commerce.model.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class CategoryPagerFragment extends NetworkFragment{
     private FragmentCategoryPagerBinding mBinding;
     private int mCategoryId;
     private ProductViewModel mViewModel;
-    private ProductAdapter mProductAdapter;
+    private SubCategoryAdapter mAdapter;
 
     public static CategoryPagerFragment newInstance(int categoryId) {
         Bundle args = new Bundle();
@@ -74,14 +73,13 @@ public class CategoryPagerFragment extends NetworkFragment{
 
     public void setUpSubCategoryAdapter(List<CategoriesItem> listLiveData) {
         if (isAdded()) {
-            if (mProductAdapter == null) {
-                mProductAdapter = new ProductAdapter(getContext(), listLiveData, TAG);
-                mBinding.subcategoryRecycler.setAdapter(mProductAdapter);
+            if (mAdapter == null) {
+                mAdapter = new SubCategoryAdapter(getContext(), listLiveData);
+                mBinding.subcategoryRecycler.setAdapter(mAdapter);
             } else {
-                mProductAdapter.setItems(listLiveData);
-                mProductAdapter.notifyDataSetChanged();
+                mAdapter.setCategoriesItemList(listLiveData);
+                mAdapter.notifyDataSetChanged();
             }
-            mProductAdapter.setTag(TAG);
         }
     }
 }

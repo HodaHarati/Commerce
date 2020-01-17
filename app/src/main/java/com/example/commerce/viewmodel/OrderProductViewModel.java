@@ -14,10 +14,16 @@ import java.util.List;
 public class OrderProductViewModel extends AndroidViewModel {
 
     private ProductRepository mProductRepository;
+    //private MutableLiveData<List<Response>> mProductList;
+
+    /*public MutableLiveData<List<Response>> getProductList() {
+        return mProductList;
+    }*/
 
     public OrderProductViewModel(@NonNull Application application) {
         super(application);
         mProductRepository = ProductRepository.getInstance(application);
+       // mProductList = mProductRepository.getProductList();
     }
 
     public MutableLiveData<List<Response>> getAllProduct(String order, int page) {
