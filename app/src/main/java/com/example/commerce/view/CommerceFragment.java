@@ -1,6 +1,7 @@
 package com.example.commerce.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -122,7 +123,25 @@ public class CommerceFragment extends NetworkFragment{
         mBinding.bestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.recycleCategory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         setUpSlider();
+        initListener();
         return mBinding.getRoot();
+    }
+
+    private void initListener() {
+        mBinding.allNewest.setOnClickListener(view -> {
+            Intent intent = AllProductActivity.newIntent(getActivity(), "date");
+            startActivity(intent);
+        });
+
+        mBinding.allMostvisited.setOnClickListener(view -> {
+            Intent intent = AllProductActivity.newIntent(getActivity(), "popularity");
+            startActivity(intent);
+        });
+
+        mBinding.allBest.setOnClickListener(view -> {
+            Intent intent = AllProductActivity.newIntent(getActivity(), "rating");
+            startActivity(intent);
+        });
     }
 
     private void setUpSlider() {

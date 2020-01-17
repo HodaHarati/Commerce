@@ -35,12 +35,14 @@ public class ProductRepository {
     private Retrofit mRetrofit;
     private ProductService mProductService;
     private ResponseDao mResponseDao;
+
     private LiveData<List<Response>> mLiveDataListid;
     private MutableLiveData<List<CategoriesItem>> mAllCategoriesItemLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mNewestLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
+
 
     public static ProductRepository getInstance(Application application) {
         if (sInstance == null)
@@ -134,6 +136,17 @@ public class ProductRepository {
         Call<List<Response>> call = mProductService.getResponse(map);
         getEnqueue(call, mBestLiveData);
         return mBestLiveData;
+    }
+
+    public MutableLiveData<List<Response>> getAllProduct(String order, int page) {
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("orderby", order);
+        map.put("page", String.valueOf(page));
+        MutableLiveData<List<Response>> mProductList = new MutableLiveData<>();
+        Call<List<Response>> call = mProductService.getResponse(map);
+        getEnqueue(call, mProductList);
+        return mProductList;
     }
 
     private void getEnqueue(Call<List<Response>> call, MutableLiveData<List<Response>> liveData) {

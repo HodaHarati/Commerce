@@ -50,6 +50,7 @@
                     app:layout_constraintTop_toBottomOf="@id/recycle_category" />
 
                 <TextView
+                    android:id="@+id/all_newest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="نمایش  همه"
@@ -82,6 +83,7 @@
                     app:layout_constraintTop_toBottomOf="@id/newestProduct" />
 
                 <TextView
+                    android:id="@+id/all_mostvisited"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="نمایش  همه"
@@ -113,8 +115,17 @@
                     app:layout_constraintBottom_toTopOf="@id/bestProduct"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mostVisited" />
+
+                <TextView
+                    android:id="@+id/all_best"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نمایش  همه"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/bestProduct"
+                    app:layout_constraintTop_toBottomOf="@id/mostVisited"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/bestProduct"
