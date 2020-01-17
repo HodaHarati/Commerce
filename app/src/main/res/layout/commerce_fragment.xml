@@ -39,7 +39,7 @@
 
                 <TextView
                     android:id="@+id/txtnewst"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="جدیدترین محصولات"
@@ -48,6 +48,15 @@
                     app:layout_constraintBottom_toTopOf="@id/newestProduct"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycle_category" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نمایش  همه"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/newestProduct"
+                    app:layout_constraintTop_toBottomOf="@id/recycle_category"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/newestProduct"
@@ -62,16 +71,24 @@
 
                 <TextView
                     android:id="@+id/txtmostvisited"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="پربازدیدترین محصولات"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/mostVisited"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/newestProduct" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نمایش  همه"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/mostVisited"
+                    app:layout_constraintTop_toBottomOf="@id/newestProduct"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mostVisited"

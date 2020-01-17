@@ -108,6 +108,10 @@ public class ItemOfProductFragment extends NetworkFragment {
         mBinding.btnAddtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Response response = new Response();
+                response.setId(mProductId);
+                response.setTotalSale(1);
+                mViewModel.insert(response);
                 getActivity().getSupportFragmentManager()
                                 .beginTransaction().replace(R.id.container_fragment, CartFragment.newInstance(mProductId))
                                 .addToBackStack(CartFragment.TAG)

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.ItemAddToCartBinding;
 import com.example.commerce.model.Response;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,6 +21,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
 
     public CartAdapter(Context context, List<Response> responseList) {
         mContext = context;
+        mResponseList = responseList;
+    }
+
+    public void setResponseList(List<Response> responseList) {
         mResponseList = responseList;
     }
 
@@ -51,6 +56,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
         }
         public void bind(Response response) {
             mResponse = response;
+            binding.txtName.setText(mResponse.getName());
+            binding.txtDescription.setText(mResponse.getDescription());
+            binding.txtOrginalprice.setText(mResponse.getRegularPrice());
+            int totalPrice = Integer.parseInt(mResponse.getRegularPrice()) - Integer.parseInt(mResponse.getSalePrice());
+            binding.txtTotalprice.setText(String.valueOf(totalPrice));
+            Picasso.with(mContext)
+                    .load(response.getImages().get(0).getSrc())
+                    .placeholder(R.drawable.image_loading)
+                    .into(binding.imgCartfragment);
         }
     }
 

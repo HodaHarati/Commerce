@@ -1,11 +1,15 @@
 package com.example.commerce.network;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.commerce.model.CategoriesItem;
 import com.example.commerce.model.Response;
+import com.example.commerce.model.dao.ResponseDao;
+import com.example.commerce.model.database.AppDatabase;
 import com.example.commerce.network.interfaces.ProductService;
 
 import java.util.HashMap;
@@ -30,19 +34,21 @@ public class ProductRepository {
     private Map<String, String> mQueries;
     private Retrofit mRetrofit;
     private ProductService mProductService;
+    private ResponseDao mResponseDao;
+    private LiveData<List<Response>> mLiveDataListid;
     private MutableLiveData<List<CategoriesItem>> mAllCategoriesItemLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mNewestLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
 
-    public static ProductRepository getInstance() {
+    public static ProductRepository getInstance(Application application) {
         if (sInstance == null)
-            sInstance = new ProductRepository();
+            sInstance = new ProductRepository(application);
         return sInstance;
     }
 
-    private ProductRepository() {
+    private ProductRepository(Application application) {
         mQueries = new HashMap<>();
         mQueries.put("consumer_key", CONSUMER_KEY);
         mQueries.put("consumer_secret", CONSUMER_SECRET);
@@ -53,6 +59,10 @@ public class ProductRepository {
                 .build();
 
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
+
+        AppDatabase appDatabase = AppDatabase.getDatabase(application);
+        mResponseDao = appDatabase.mResponseDao();
+        mLiveDataListid = mResponseDao.getResponseIdList();
     }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesItemLiveData() {
@@ -200,5 +210,12 @@ public class ProductRepository {
             }
         });
         return listSubCategoriesLiveData;
+    }
+
+    public LiveData<List<Response>> getAllResponseID() {
+        return mLiveDataListid;
+    }
+    public void insert(Response responseId) {
+        AppDatabase.responseExecutor.execute(() -> {mResponseDao.insert(responseId);});
     }
 }

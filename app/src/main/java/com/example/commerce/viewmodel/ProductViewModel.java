@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.commerce.model.CategoriesItem;
@@ -22,7 +23,9 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mMostVisitedLiveData;
     private MutableLiveData<List<Response>> mBestLiveData;
     private MutableLiveData<Response> mItemProductLiveData;
-    private List<Response> mListResponseOfCart;
+
+    private LiveData<List<Response>> mListProductID;
+    private MutableLiveData<List<Response>> mListResponseOfCart = new MutableLiveData<>();
 
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesLiveData() {
         return mAllCategoriesLiveData;
@@ -44,14 +47,19 @@ public class ProductViewModel extends AndroidViewModel {
         return mItemProductLiveData;
     }
 
+    public LiveData<List<Response>> getListProductID() {
+        return mListProductID;
+    }
+
     public ProductViewModel(@NonNull Application application) {
         super(application);
-        mProductRepository = ProductRepository.getInstance();
+        mProductRepository = ProductRepository.getInstance(application);
         mAllCategoriesLiveData = mProductRepository.getAllCategoriesItemLiveData();
         mNewestProductLiveData = mProductRepository.getNewestLiveData();
         mMostVisitedLiveData = mProductRepository.getMostvisitedLiveData();
         mBestLiveData = mProductRepository.getBestLiveData();
         mItemProductLiveData = mProductRepository.getItemProductLiveData();
+        mListProductID = mProductRepository.getAllResponseID();
     }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
@@ -91,5 +99,17 @@ public class ProductViewModel extends AndroidViewModel {
                 list.add(response);
             }
         return list;
+    }
+
+    public void insert(Response responseID) {
+        mProductRepository.insert(responseID);
+    }
+    public LiveData<List<Response>> getProductOfCart() {
+        LiveData<Response> products;
+        for (int i = 0; i <getListProductID().getValue().size() ; i++) {
+            products = getItem(getListProductID().getValue().get(i).getId());
+            mListResponseOfCart.setValue((List<Response>) products);
+        }
+        return mListResponseOfCart;
     }
 }
