@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.commerce.R;
 import com.example.commerce.adapter.AllProductAdapter;
@@ -27,48 +28,46 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllProductFragment extends Fragment {
+public class AllProductSearchFragment extends Fragment {
 
-    public static final String ARG_TYPE_OF_LIST = "type_of_list";
+    public static final String ARG_QUERY = "query";
     private FragmentAllProductBinding mBinding;
     private OrderProductViewModel mViewModel;
     private AllProductAdapter mAdapter;
     private EndlessRecyclerViewScrollListener scrollListener;
-    String typeOfList; // chera vaghti private gozashtam mige access nist?????????????????
+    String query; // chera vaghti private gozashtam mige access nist?????????????????
     int pageNumber =1;
 
-
-    public static AllProductFragment newInstance(String typeOfList) {
+    public static AllProductSearchFragment newInstance(String query) {
 
         Bundle args = new Bundle();
-        args.putString(ARG_TYPE_OF_LIST, typeOfList);
-        AllProductFragment fragment = new AllProductFragment();
+        args.putString(ARG_QUERY, query);
+        AllProductSearchFragment fragment = new AllProductSearchFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public AllProductFragment() {
+    public AllProductSearchFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        typeOfList = getArguments().getString(ARG_TYPE_OF_LIST);
+        String query = getArguments().getString(ARG_QUERY);
         mViewModel = ViewModelProviders.of(this).get(OrderProductViewModel.class);
-        mViewModel.getProductList().observe(this, new Observer<List<Response>>() {
+        mViewModel.searchProduct(query, pageNumber).observe(this, new Observer<List<Response>>() {
             @Override
-            public void onChanged(List<Response> responseList) {
-                setUpAllProductAdapter(responseList);
+            public void onChanged(List<Response> responses) {
+                setUpAllProductAdapter(responses);
             }
         });
-        mViewModel.getAllProduct(typeOfList, pageNumber);
+        //mViewModel.searchProduct(query, pageNumber);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_product, container, false);
         LinearLayoutManager linear = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mBinding.recyclerAllProduct.setLayoutManager(linear);
@@ -79,18 +78,15 @@ public class AllProductFragment extends Fragment {
                 // Add whatever code is needed to append new items to the bottom of the list
                 //loadNextDataFromApi(page);
 
-                    pageNumber++;
-                    mViewModel.getAllProduct(typeOfList, pageNumber);
+                pageNumber++;
+                mViewModel.searchProduct(query, pageNumber);
             }
         };
         // Adds the scroll listener to RecyclerView
         mBinding.recyclerAllProduct.addOnScrollListener(scrollListener);
         return mBinding.getRoot();
     }
-    /*public void loadNextDataFromApi(int page) {
-        pageNumber++;
-        mViewModel.getAllProduct(typeOfList, pageNumber);
-    }*/
+
     public void setUpAllProductAdapter(List<Response> responseList) {
         if (isAdded()) {
             mAdapter = new AllProductAdapter(getContext(), responseList);

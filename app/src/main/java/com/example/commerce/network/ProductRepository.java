@@ -44,7 +44,9 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mProductList = new MutableLiveData<>();
-    private List<Response> allList = new ArrayList<>();
+    //private MutableLiveData<List<Response>> mProductSearchList = new MutableLiveData<>();
+    private List<Response> mAllList = new ArrayList<>();
+    //private List<Response> mAllSearchList = new ArrayList<>();
 
     public static ProductRepository getInstance(Application application) {
         if (sInstance == null)
@@ -95,6 +97,10 @@ public class ProductRepository {
     public MutableLiveData<List<Response>> getProductList() {
         return mProductList;
     }
+
+    /*public MutableLiveData<List<Response>> getProductSearchList() {
+        return mProductSearchList;
+    }*/
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
         HashMap<String, String> map = new HashMap<>();
@@ -154,14 +160,14 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful()){
-                    allList.addAll(response.body());
-                    mProductList.setValue(allList);
+                    mAllList.addAll(response.body());
+                    mProductList.setValue(mAllList);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Response>> call, Throwable t) {
-
+                Log.e(TAG, t.getMessage(), t );
             }
         });
         return mProductList;
@@ -241,6 +247,31 @@ public class ProductRepository {
             }
         });
         return listSubCategoriesLiveData;
+    }
+
+    public MutableLiveData<List<Response>> searchProduct(String query, int page) {
+        MutableLiveData<List<Response>> mProductSearchList = new MutableLiveData<>();
+        List<Response> mAllSearchList = new ArrayList<>();
+        HashMap<String,String> map =new HashMap<>();
+        map.putAll(mQueries);
+        map.put("search", query);
+        map.put("page", String.valueOf(page));
+        Call<List<Response>> call = mProductService.getResponse(map);
+        call.enqueue(new Callback<List<Response>>() {
+            @Override
+            public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
+                if (response.isSuccessful()){
+                    mAllSearchList.addAll(response.body());
+                    mProductSearchList.setValue(mAllSearchList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Response>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t );
+            }
+        });
+        return mProductSearchList;
     }
 
     public LiveData<List<Response>> getAllResponseID() {

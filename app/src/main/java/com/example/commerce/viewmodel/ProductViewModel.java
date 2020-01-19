@@ -22,7 +22,6 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mNewestProductLiveData;
     private MutableLiveData<List<Response>> mMostVisitedLiveData;
     private MutableLiveData<List<Response>> mBestLiveData;
-    private MutableLiveData<List<Response>> mListAllProduct;
     private MutableLiveData<Response> mItemProductLiveData;
 
     private LiveData<List<Response>> mListProductID;
@@ -60,7 +59,6 @@ public class ProductViewModel extends AndroidViewModel {
         mMostVisitedLiveData = mProductRepository.getMostvisitedLiveData();
         mBestLiveData = mProductRepository.getBestLiveData();
         mItemProductLiveData = mProductRepository.getItemProductLiveData();
-
     }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
@@ -92,6 +90,7 @@ public class ProductViewModel extends AndroidViewModel {
         return mProductRepository.getSubCategories(parentid);
     }
 
+/*
     public List<Response> searchProduct(List<Response> listProduct, String query) {
 
             List<Response> list = new ArrayList<>();
@@ -100,7 +99,7 @@ public class ProductViewModel extends AndroidViewModel {
                 list.add(response);
             }
         return list;
-    }
+    }*/
 
     public void insert(Response responseID) {
         mProductRepository.insert(responseID);

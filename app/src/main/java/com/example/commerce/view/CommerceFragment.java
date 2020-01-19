@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
+import com.example.commerce.adapter.AllProductAdapter;
 import com.example.commerce.adapter.ListAdapter;
 import com.example.commerce.adapter.CategoryAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
@@ -44,18 +45,15 @@ public class CommerceFragment extends NetworkFragment{
 
     private String TAG = "CommerceFragment";
 
-    CommerceFragmentBinding mBinding;
-    FragmentCategoryPagerBinding mCategoryPagerBinding;
-    ProductViewModel mViewModel;
-//    ProductRepository productRepository;
+    private CommerceFragmentBinding mBinding;
+    private FragmentCategoryPagerBinding mCategoryPagerBinding;
+    private ProductViewModel mViewModel;
 
     private ListAdapter mAdapterNewwst;
     private ListAdapter mAdapterMostViseted;
     private ListAdapter mAdapterBest;
     private CategoryAdapter mAdapterCategory;
-    private List<String> mCategoriesName = new ArrayList<>();
     private List<Response> mResponseList = new ArrayList<>();
-    private searchCallbacks mSearchCallbacks;
 
     public static CommerceFragment newInstance() {
 
@@ -68,10 +66,6 @@ public class CommerceFragment extends NetworkFragment{
 
     public CommerceFragment() {
         // Required empty public constructor
-    }
-
-    public void setSearchCallbacks(searchCallbacks searchCallbacks) {
-        mSearchCallbacks = searchCallbacks;
     }
 
     @Override
@@ -129,17 +123,17 @@ public class CommerceFragment extends NetworkFragment{
 
     private void initListener() {
         mBinding.allNewest.setOnClickListener(view -> {
-            Intent intent = AllProductActivity.newIntent(getActivity(), "date");
+            Intent intent = AllProductActivity.newIntent(getActivity(), "date", " ");
             startActivity(intent);
         });
 
         mBinding.allMostvisited.setOnClickListener(view -> {
-            Intent intent = AllProductActivity.newIntent(getActivity(), "popularity");
+            Intent intent = AllProductActivity.newIntent(getActivity(), "popularity", " ");
             startActivity(intent);
         });
 
         mBinding.allBest.setOnClickListener(view -> {
-            Intent intent = AllProductActivity.newIntent(getActivity(), "rating");
+            Intent intent = AllProductActivity.newIntent(getActivity(), "rating", " ");
             startActivity(intent);
         });
     }
@@ -164,9 +158,12 @@ public class CommerceFragment extends NetworkFragment{
         final SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mSearchCallbacks.setUpAdapter(mViewModel.searchProduct(mResponseList,query));
+                Intent intent = AllProductActivity.newIntent(getContext(), "search", query);
+                startActivity(intent);
+//                mSearchCallbacks.setUpAdapter(mViewModel.searchProduct(mResponseList,query));
                 searchView.onActionViewCollapsed();
                 return true;  // true if you want to handle code by self
             }
@@ -227,9 +224,5 @@ public class CommerceFragment extends NetworkFragment{
             mAdapterBest.notifyDataSetChanged();
             Log.d(TAG, "setUpAdapter: called");
         }
-    }
-
-    public interface searchCallbacks{
-        void setUpAdapter(List<Response> listResponse);
     }
 }
