@@ -1,10 +1,10 @@
-package com.example.commerce.model;
+package com.example.commerce.model.product;
 
 //import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("com.robohorse.robopojogenerator")
-public class SelfItem{
+public class CollectionItem{
 
 	@SerializedName("href")
 	private String href;
@@ -20,7 +20,7 @@ public class SelfItem{
 	@Override
  	public String toString(){
 		return 
-			"SelfItem{" + 
+			"CollectionItem{" + 
 			"href = '" + href + '\'' + 
 			"}";
 		}

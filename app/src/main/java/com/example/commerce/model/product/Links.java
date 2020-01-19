@@ -1,4 +1,4 @@
-package com.example.commerce.model;
+package com.example.commerce.model.product;
 
 import java.util.List;
 //import javax.annotation.Generated;

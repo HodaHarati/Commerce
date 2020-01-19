@@ -1,9 +1,9 @@
-package com.example.commerce.model;
+package com.example.commerce.model.user;
 
-//import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("com.robohorse.robopojogenerator")
+
 public class CollectionItem{
 
 	@SerializedName("href")

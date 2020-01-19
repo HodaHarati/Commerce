@@ -21,11 +21,8 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.FragmentItemOfProductBinding;
-import com.example.commerce.model.Response;
-import com.example.commerce.network.ProductRepository;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
-
-import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.

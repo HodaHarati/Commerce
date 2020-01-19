@@ -1,6 +1,7 @@
 package com.example.commerce.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -11,7 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.ItemProductSubcategoryBinding;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
+import com.example.commerce.view.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,6 +57,14 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.Al
         public AllProductHolder(ItemProductSubcategoryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = ItemOfProductActivity.newIntent(mContext, mResponse.getId());
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void bind (Response response) {

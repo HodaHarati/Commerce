@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.commerce.model.CategoriesItem;
+import com.example.commerce.model.product.CategoriesItem;
 import com.example.commerce.view.CategoryPagerFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryViewPagerAdapter extends FragmentStatePagerAdapter {

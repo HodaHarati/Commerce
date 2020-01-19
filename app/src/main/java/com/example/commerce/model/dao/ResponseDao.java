@@ -1,12 +1,11 @@
 package com.example.commerce.model.dao;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
 
 import java.util.List;
 

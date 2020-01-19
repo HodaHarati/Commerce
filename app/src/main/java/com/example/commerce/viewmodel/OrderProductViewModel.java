@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.network.ProductRepository;
 
 import java.util.List;

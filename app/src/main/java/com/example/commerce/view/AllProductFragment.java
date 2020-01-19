@@ -3,14 +3,12 @@ package com.example.commerce.view;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,7 @@ import android.view.ViewGroup;
 import com.example.commerce.R;
 import com.example.commerce.adapter.AllProductAdapter;
 import com.example.commerce.databinding.FragmentAllProductBinding;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.viewmodel.OrderProductViewModel;
 
 import java.util.List;

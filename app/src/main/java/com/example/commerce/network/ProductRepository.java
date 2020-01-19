@@ -6,8 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.commerce.model.CategoriesItem;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.CategoriesItem;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.model.dao.ResponseDao;
 import com.example.commerce.model.database.AppDatabase;
 import com.example.commerce.network.interfaces.ProductService;

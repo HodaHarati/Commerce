@@ -1,16 +1,14 @@
 package com.example.commerce.network.interfaces;
 
-import com.example.commerce.model.CategoriesItem;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.CategoriesItem;
+import com.example.commerce.model.product.Response;
 
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ProductService {
@@ -30,4 +28,7 @@ public interface ProductService {
     @GET("products/")
     Call<List<Response>> listProductInCategory(@QueryMap Map<String, String> queries);
 
+    /*@POST("customers")
+    Call<User> createCustomer(@QueryMap Map<String, String> queries,
+                              @Field("email",));*/
 }

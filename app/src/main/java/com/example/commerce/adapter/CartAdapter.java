@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.commerce.R;
 import com.example.commerce.databinding.ItemAddToCartBinding;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -8,8 +8,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.commerce.model.CategoriesItem;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.CategoriesItem;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.network.ProductRepository;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class ProductViewModel extends AndroidViewModel {
         mMostVisitedLiveData = mProductRepository.getMostvisitedLiveData();
         mBestLiveData = mProductRepository.getBestLiveData();
         mItemProductLiveData = mProductRepository.getItemProductLiveData();
-        mListProductID = mProductRepository.getAllResponseID();
+
     }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
@@ -105,6 +105,7 @@ public class ProductViewModel extends AndroidViewModel {
         mProductRepository.insert(responseID);
     }
     public LiveData<List<Response>> getProductOfCart() {
+        mListProductID = mProductRepository.getAllResponseID();
         LiveData<Response> products;
         for (int i = 0; i <getListProductID().getValue().size() ; i++) {
             products = getItem(getListProductID().getValue().get(i).getId());

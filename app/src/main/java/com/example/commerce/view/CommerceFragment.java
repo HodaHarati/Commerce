@@ -28,8 +28,8 @@ import com.example.commerce.adapter.ListAdapter;
 import com.example.commerce.adapter.CategoryAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
-import com.example.commerce.model.CategoriesItem;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.CategoriesItem;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.ArrayList;

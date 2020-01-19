@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.example.commerce.R;
 import com.example.commerce.adapter.AllProductAdapter;
 import com.example.commerce.databinding.FragmentProductOfSubcategoryBinding;
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.List;

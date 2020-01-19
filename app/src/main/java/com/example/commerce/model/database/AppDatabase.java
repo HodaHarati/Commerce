@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.commerce.model.Response;
+import com.example.commerce.model.product.Response;
 import com.example.commerce.model.dao.ResponseDao;
 
 import java.util.concurrent.Executor;

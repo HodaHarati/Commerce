@@ -2,19 +2,15 @@ package com.example.commerce.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import com.example.commerce.R;
 import com.example.commerce.adapter.CategoryViewPagerAdapter;
 import com.example.commerce.databinding.ActivityCategoryPagerBinding;
-import com.example.commerce.model.CategoriesItem;
+import com.example.commerce.model.product.CategoriesItem;
 import com.example.commerce.viewmodel.ProductViewModel;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -60,5 +56,6 @@ public class CategoryPagerActivity extends AppCompatActivity {
             mCategoryViewPagerAdapter.setCategoriesItems(categoriesItems);
             mCategoryViewPagerAdapter.notifyDataSetChanged();
         }
+        // mBinding.viewPager.setCurrentItem(mCategoryid);
     }
 }

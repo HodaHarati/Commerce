@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.commerce.R;
 import com.example.commerce.databinding.SubcategoryBinding;
-import com.example.commerce.model.CategoriesItem;
+import com.example.commerce.model.product.CategoriesItem;
 import com.example.commerce.view.ProductOfSubcategoryActivity;
 
 import java.util.List;
