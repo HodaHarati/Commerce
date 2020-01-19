@@ -12,6 +12,7 @@ import com.example.commerce.model.dao.ResponseDao;
 import com.example.commerce.model.database.AppDatabase;
 import com.example.commerce.network.interfaces.ProductService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,8 @@ public class ProductRepository {
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mBestLiveData = new MutableLiveData<>();
     private MutableLiveData<Response> mItemProductLiveData = new MutableLiveData<>();
-   // private MutableLiveData<List<Response>> mProductList = new MutableLiveData<>();
+    private MutableLiveData<List<Response>> mProductList = new MutableLiveData<>();
+    private List<Response> allList = new ArrayList<>();
 
     public static ProductRepository getInstance(Application application) {
         if (sInstance == null)
@@ -90,9 +92,9 @@ public class ProductRepository {
         return mItemProductLiveData;
     }
 
-    /*public MutableLiveData<List<Response>> getProductList() {
+    public MutableLiveData<List<Response>> getProductList() {
         return mProductList;
-    }*/
+    }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategories() {
         HashMap<String, String> map = new HashMap<>();
@@ -147,10 +149,22 @@ public class ProductRepository {
         map.putAll(mQueries);
         map.put("orderby", order);
         map.put("page", String.valueOf(page));
-        MutableLiveData<List<Response>> productList = new MutableLiveData<>();
         Call<List<Response>> call = mProductService.getResponse(map);
-        getEnqueue(call, productList);
-        return productList;
+        call.enqueue(new Callback<List<Response>>() {
+            @Override
+            public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
+                if (response.isSuccessful()){
+                    allList.addAll(response.body());
+                    mProductList.setValue(allList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Response>> call, Throwable t) {
+
+            }
+        });
+        return mProductList;
     }
 
     private void getEnqueue(Call<List<Response>> call, MutableLiveData<List<Response>> liveData) {

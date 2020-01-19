@@ -22,6 +22,7 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mNewestProductLiveData;
     private MutableLiveData<List<Response>> mMostVisitedLiveData;
     private MutableLiveData<List<Response>> mBestLiveData;
+    private MutableLiveData<List<Response>> mListAllProduct;
     private MutableLiveData<Response> mItemProductLiveData;
 
     private LiveData<List<Response>> mListProductID;
