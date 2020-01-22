@@ -110,7 +110,7 @@ public class ProductRepository {
         call.enqueue(new Callback<List<CategoriesItem>>() {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
-                mAllCategoriesItemLiveData.postValue(response.body());
+                mAllCategoriesItemLiveData.setValue(response.body());
                 Log.d(TAG, "onResponse: calllllll");
             }
 
@@ -135,7 +135,6 @@ public class ProductRepository {
         HashMap<String, String> map = new HashMap<>();
         map.putAll(mQueries);
         map.put("orderby", "popularity");
-
         Call<List<Response>> call = mProductService.getResponse(map);
         getEnqueue(call, mMostvisitedLiveData);
         return mMostvisitedLiveData;

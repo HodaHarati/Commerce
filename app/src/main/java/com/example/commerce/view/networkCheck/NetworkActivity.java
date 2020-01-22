@@ -1,7 +1,6 @@
-package com.example.commerce.view;
+package com.example.commerce.view.networkCheck;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,13 +10,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.commerce.R;
 import com.example.commerce.databinding.ActivityNetworkBinding;
-import com.example.commerce.viewmodel.ProductViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class NetworkActivity extends AppCompatActivity  {

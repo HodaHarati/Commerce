@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.listProduct;
 
 
 import android.content.Intent;
@@ -24,13 +24,13 @@ import android.view.ViewGroup;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
-import com.example.commerce.adapter.AllProductAdapter;
 import com.example.commerce.adapter.ListAdapter;
 import com.example.commerce.adapter.CategoryAdapter;
 import com.example.commerce.databinding.CommerceFragmentBinding;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
 import com.example.commerce.model.product.CategoriesItem;
 import com.example.commerce.model.product.Response;
+import com.example.commerce.view.networkCheck.NetworkFragment;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CommerceFragment extends NetworkFragment{
+public class CommerceFragment extends NetworkFragment {
 
     private String TAG = "CommerceFragment";
 
@@ -73,7 +73,6 @@ public class CommerceFragment extends NetworkFragment{
         super.onCreate(savedInstanceState);
 
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-
         mViewModel.getAllCategoriesLiveData().observe(this, new Observer<List<CategoriesItem>>() {
             @Override
             public void onChanged(List<CategoriesItem> categoriesItems) {
@@ -110,8 +109,6 @@ public class CommerceFragment extends NetworkFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.commerce_fragment, container, false);
-        mBinding.executePendingBindings();
-
         mBinding.newestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.bestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -163,14 +160,12 @@ public class CommerceFragment extends NetworkFragment{
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = AllProductActivity.newIntent(getContext(), "search", query);
                 startActivity(intent);
-//                mSearchCallbacks.setUpAdapter(mViewModel.searchProduct(mResponseList,query));
                 searchView.onActionViewCollapsed();
                 return true;  // true if you want to handle code by self
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                mSearchCallbacks.setUpAdapter(mViewModel.searchProduct(mResponseList, newText));
                 return true;
             }
 

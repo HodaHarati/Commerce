@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Commerce</string>
-    <string name="username">UserName</string>
     <string name="start_drawer">start</string>
     <string name="end_drawer">end</string>
 

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.ItemListBinding;
 import com.example.commerce.model.product.Response;
-import com.example.commerce.view.ItemOfProductActivity;
+import com.example.commerce.view.category.ItemOfProductActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

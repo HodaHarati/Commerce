@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.category;
 
 
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.example.commerce.R;
 import com.example.commerce.adapter.SubCategoryAdapter;
 import com.example.commerce.databinding.FragmentCategoryPagerBinding;
 import com.example.commerce.model.product.CategoriesItem;
+import com.example.commerce.view.networkCheck.NetworkFragment;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryPagerFragment extends NetworkFragment{
+public class CategoryPagerFragment extends NetworkFragment {
 
     private String TAG = "CategoryPagerFragment";
 

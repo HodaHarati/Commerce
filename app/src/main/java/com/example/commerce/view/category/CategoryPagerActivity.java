@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.category;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

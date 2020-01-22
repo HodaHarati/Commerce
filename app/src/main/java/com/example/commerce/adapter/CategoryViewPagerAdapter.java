@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.commerce.model.product.CategoriesItem;
-import com.example.commerce.view.CategoryPagerFragment;
+import com.example.commerce.view.category.CategoryPagerFragment;
 
 import java.util.List;
 

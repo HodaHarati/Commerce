@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.listProduct;
 
 
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.commerce.R;
 import com.example.commerce.adapter.AllProductAdapter;

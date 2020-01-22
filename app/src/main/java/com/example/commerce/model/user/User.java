@@ -54,6 +54,22 @@ public class User{
 	@SerializedName("username")
 	private String username;
 
+	@SerializedName("password")
+	private String password;
+
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void setDateModifiedGmt(String dateModifiedGmt){
 		this.dateModifiedGmt = dateModifiedGmt;
 	}

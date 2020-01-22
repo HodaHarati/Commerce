@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.CategoryListBinding;
 import com.example.commerce.model.product.CategoriesItem;
-import com.example.commerce.view.CategoryPagerActivity;
+import com.example.commerce.view.category.CategoryPagerActivity;
 
 import java.util.List;
 

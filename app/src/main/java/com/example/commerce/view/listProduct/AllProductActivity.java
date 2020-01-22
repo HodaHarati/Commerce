@@ -1,6 +1,5 @@
-package com.example.commerce.view;
+package com.example.commerce.view.listProduct;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;

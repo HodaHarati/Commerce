@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.category;
 
 import androidx.fragment.app.Fragment;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 
 
 import com.example.commerce.R;
+import com.example.commerce.view.listProduct.SingleFragmentActivity;
 
 public class ItemOfProductActivity extends SingleFragmentActivity {
 

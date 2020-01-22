@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.category;
 
 
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.example.commerce.R;
 import com.example.commerce.adapter.AllProductAdapter;
 import com.example.commerce.databinding.FragmentProductOfSubcategoryBinding;
 import com.example.commerce.model.product.Response;
+import com.example.commerce.view.networkCheck.NetworkFragment;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 import java.util.List;

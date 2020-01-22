@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="10"
-        tools:context=".view.CategoryPagerActivity">
+        tools:context=".view.category.CategoryPagerActivity">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

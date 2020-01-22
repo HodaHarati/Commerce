@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.category;
 
 
 import android.graphics.Color;
@@ -22,6 +22,8 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.FragmentItemOfProductBinding;
 import com.example.commerce.model.product.Response;
+import com.example.commerce.view.cart.CartFragment;
+import com.example.commerce.view.networkCheck.NetworkFragment;
 import com.example.commerce.viewmodel.ProductViewModel;
 
 /**

@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="4dp"
-    tools:context=".view.CartFragment">
+    tools:context=".view.cart.CartFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_cart"

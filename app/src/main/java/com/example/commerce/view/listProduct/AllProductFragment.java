@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.listProduct;
 
 
 import android.os.Bundle;
@@ -78,7 +78,6 @@ public class AllProductFragment extends Fragment {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
                 //loadNextDataFromApi(page);
-
                     pageNumber++;
                     mViewModel.getAllProduct(typeOfList, pageNumber);
             }
@@ -87,10 +86,7 @@ public class AllProductFragment extends Fragment {
         mBinding.recyclerAllProduct.addOnScrollListener(scrollListener);
         return mBinding.getRoot();
     }
-    /*public void loadNextDataFromApi(int page) {
-        pageNumber++;
-        mViewModel.getAllProduct(typeOfList, pageNumber);
-    }*/
+
     public void setUpAllProductAdapter(List<Response> responseList) {
         if (isAdded()) {
             mAdapter = new AllProductAdapter(getContext(), responseList);

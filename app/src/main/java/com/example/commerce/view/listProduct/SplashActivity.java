@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.listProduct;
 
 import android.content.Intent;
 import android.os.Bundle;

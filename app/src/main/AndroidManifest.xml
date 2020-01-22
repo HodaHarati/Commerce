@@ -9,30 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AllProductActivity"></activity>
-        <activity android:name=".view.NetworkActivity" />
-        <activity android:name=".view.ProductOfSubcategoryActivity" />
-        <activity android:name=".view.CategoryPagerActivity" />
-        <activity android:name=".view.ItemOfProductActivity" />
-        <activity android:name=".view.SplashActivity">
+        <activity android:name=".view.login.LoginActivity"></activity>
+        <activity android:name=".view.listProduct.AllProductActivity" />
+        <activity android:name=".view.networkCheck.NetworkActivity" />
+        <activity android:name=".view.category.ProductOfSubcategoryActivity" />
+        <activity android:name=".view.category.CategoryPagerActivity" />
+        <activity android:name=".view.category.ItemOfProductActivity" />
+        <activity android:name=".view.listProduct.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.listProduct.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.SingleFragmentActivity" />
+        <activity android:name=".view.listProduct.SingleFragmentActivity" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

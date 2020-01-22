@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.networkCheck;
 
 
 import android.content.BroadcastReceiver;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import com.example.commerce.R;
 import com.example.commerce.databinding.FragmentNetworkBinding;
 

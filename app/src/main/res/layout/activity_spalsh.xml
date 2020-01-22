@@ -9,6 +9,6 @@
     app:lottie_autoPlay="true"
     android:background="@color/colorPrimaryDark"
     app:lottie_loop="true"
-    tools:context=".view.SplashActivity">
+    tools:context=".view.listProduct.SplashActivity">
 
 </com.airbnb.lottie.LottieAnimationView>

@@ -1,4 +1,4 @@
-package com.example.commerce.view;
+package com.example.commerce.view.listProduct;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
