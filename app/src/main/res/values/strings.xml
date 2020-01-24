@@ -6,4 +6,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="commerce">commerce</string>
+    <string-array name="items">
+        <item>پرفروش ترین ها</item>
+        <item>جدید ترین ها</item>
+        <item>قیمت از کم به زیاد</item>
+        <item>قیمت از زیاد به کم</item>
+    </string-array>
 </resources>
