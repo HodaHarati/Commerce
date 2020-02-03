@@ -17,11 +17,16 @@ import android.view.ViewGroup;
 import com.example.commerce.R;
 import com.example.commerce.adapter.CartAdapter;
 import com.example.commerce.databinding.FragmentCartBinding;
+import com.example.commerce.model.product.CartProduct;
 import com.example.commerce.model.product.Response;
 import com.example.commerce.view.networkCheck.NetworkFragment;
 import com.example.commerce.viewmodel.ProductViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +42,7 @@ public class CartFragment extends NetworkFragment {
     private int mCount;
 
     private int mProductid;
-    //private List<Integer> mListProductId = new ArrayList<>();
+
 
     public static CartFragment newInstance(int productId) {
 
@@ -56,14 +61,20 @@ public class CartFragment extends NetworkFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProductid = getArguments().getInt(ARG_PRODUCT_ID);
-        //mListProductId.add(mProductid);
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        mViewModel.getProductOfCart().observe(this, new Observer<List<Response>>() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<CartProduct> result2 = realm.where(CartProduct.class).findAll();
+        int[] Ids = new int[result2.size()];
+        for (int i = 0; i <result2.size() ; i++) {
+            Ids[i] = result2.get(i).getId();
+        }
+        mViewModel.getProductOfCart(Ids).observe(this, new Observer<List<Response>>() {
             @Override
-            public void onChanged(List<Response> responseList) {
-                setUpAdapter(responseList);
+            public void onChanged(List<Response> responses) {
+                setUpAdapter(responses);
             }
         });
+
 
     }
 

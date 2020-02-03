@@ -22,6 +22,7 @@ import com.example.commerce.databinding.FragmentAllProductBinding;
 import com.example.commerce.model.product.Response;
 import com.example.commerce.viewmodel.OrderProductViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public class AllProductFragment extends Fragment {
     private OrderProductViewModel mViewModel;
     private AllProductAdapter mAdapter;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private List<Response> mResponseList = new ArrayList<>();
     String typeOfList; // chera vaghti private gozashtam mige access nist?????????????????
     int pageNumber =1;
 
@@ -56,10 +58,13 @@ public class AllProductFragment extends Fragment {
         super.onCreate(savedInstanceState);
         typeOfList = getArguments().getString(ARG_TYPE_OF_LIST);
         mViewModel = ViewModelProviders.of(this).get(OrderProductViewModel.class);
+
         mViewModel.getProductList().observe(this, new Observer<List<Response>>() {
             @Override
             public void onChanged(List<Response> responseList) {
-                setUpAllProductAdapter(responseList);
+               // mResponseList.addAll(responseList);
+               mResponseList.addAll(responseList);
+                setUpAllProductAdapter(mResponseList);
             }
         });
         mViewModel.getAllProduct(typeOfList, pageNumber);

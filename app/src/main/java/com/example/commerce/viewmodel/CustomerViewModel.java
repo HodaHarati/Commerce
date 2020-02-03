@@ -1,7 +1,6 @@
 package com.example.commerce.viewmodel;
 
 import android.app.Application;
-import android.app.ListActivity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -30,7 +29,7 @@ public class CustomerViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<User>> getAllCustomer() {
-        return mCustomerRepository.getAllCustomer();
+        return mCustomerRepository.getCustomer();
     }
 
     public void postCustomer(User user) {

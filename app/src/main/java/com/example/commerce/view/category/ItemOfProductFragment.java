@@ -21,10 +21,13 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.commerce.R;
 import com.example.commerce.databinding.FragmentItemOfProductBinding;
+import com.example.commerce.model.product.CartProduct;
 import com.example.commerce.model.product.Response;
 import com.example.commerce.view.cart.CartFragment;
 import com.example.commerce.view.networkCheck.NetworkFragment;
 import com.example.commerce.viewmodel.ProductViewModel;
+
+import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +38,7 @@ public class ItemOfProductFragment extends NetworkFragment {
 
     ProductViewModel mViewModel;
     FragmentItemOfProductBinding mBinding;
+    Response mResponse;
     private int mProductId;
 
     public static ItemOfProductFragment newInstance(int productId) {
@@ -59,6 +63,7 @@ public class ItemOfProductFragment extends NetworkFragment {
             @Override
             public void onChanged(Response response) {
                 initView(response);
+                mResponse = response;
 
                 mBinding.itemSliderLayout.removeAllSliders();
                 for (int i = 0; i < response.getImages().size(); i++) {
@@ -104,18 +109,18 @@ public class ItemOfProductFragment extends NetworkFragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_of_product, container, false);
         mBinding.executePendingBindings();
 
-        mBinding.btnAddtocart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Response response = new Response();
-                response.setId(mProductId);
-                response.setTotalSale(1);
-                mViewModel.insert(response);
-                getActivity().getSupportFragmentManager()
-                                .beginTransaction().replace(R.id.container_fragment, CartFragment.newInstance(mProductId))
-                                .addToBackStack(CartFragment.TAG)
-                                .commit();
-            }
+        mBinding.btnAddtocart.setOnClickListener(view -> {
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+
+            CartProduct cartProduct = realm.createObject(CartProduct.class, mProductId);
+//            cartProduct.setId(mProductId);
+            cartProduct.setCount(1);
+            realm.commitTransaction();
+            getActivity().getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.container_fragment, CartFragment.newInstance(mProductId))
+                            .addToBackStack(CartFragment.TAG)
+                            .commit();
         });
 
         return mBinding.getRoot();

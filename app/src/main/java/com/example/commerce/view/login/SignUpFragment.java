@@ -78,22 +78,25 @@ public class SignUpFragment extends Fragment {
     }
 
     public void initListener() {
-        mUsername = mBinding.signUsername.getText().toString();
-        mPass = mBinding.signPass.getText().toString();
         mBinding.signSign.setOnClickListener(view -> {
+            mUsername = mBinding.signUsername.getText().toString();
+            mPass = mBinding.signPass.getText().toString();
             if (mBinding.signUsername.getText().toString().equals("") || mBinding.signPass.getText().toString().equals(""))
                 Toast.makeText(getContext(), "لطفا نام کاربری و کلمه عبور را وارد نمایید", Toast.LENGTH_LONG).show();
             else if (flag == true)
                 Toast.makeText(getContext(), "این نام کاربری قبلا ثبت شده است", Toast.LENGTH_LONG).show();
             else {
-                User user = new User(mUsername, mPass);
+                User user = new User(mUsername);
                 mCustomerViewModel.postCustomer(user);
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_USERNAME, user.getEmail());
                 intent.putExtra(EXTRA_PASSWORD, user.getPassword());
                 Fragment fragment = getTargetFragment();
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-                getActivity().getSupportFragmentManager().beginTransaction().remove(SignUpFragment.this).commit();
+                getActivity().getSupportFragmentManager()
+                             .beginTransaction()
+                             .remove(this)
+                             .commit();
             }
         });
     }

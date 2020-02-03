@@ -1,3 +1,4 @@
+/*
 package com.example.commerce.model.dao;
 
 import androidx.lifecycle.LiveData;
@@ -17,3 +18,4 @@ public interface ResponseDao {
     @Query("SELECT * FROM response")
     LiveData<List<Response>> getResponseIdList();
 }
+*/

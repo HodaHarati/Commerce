@@ -1,6 +1,7 @@
 package com.example.commerce.viewmodel;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,12 +9,16 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.commerce.model.product.CartProduct;
 import com.example.commerce.model.product.CategoriesItem;
 import com.example.commerce.model.product.Response;
 import com.example.commerce.network.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ProductViewModel extends AndroidViewModel {
 
@@ -24,7 +29,7 @@ public class ProductViewModel extends AndroidViewModel {
     private MutableLiveData<List<Response>> mBestLiveData;
     private MutableLiveData<Response> mItemProductLiveData;
 
-    private LiveData<List<Response>> mListProductID;
+
     private MutableLiveData<List<Response>> mListResponseOfCart = new MutableLiveData<>();
 
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesLiveData() {
@@ -45,10 +50,6 @@ public class ProductViewModel extends AndroidViewModel {
 
     public MutableLiveData<Response> getItemProductLiveData() {
         return mItemProductLiveData;
-    }
-
-    public LiveData<List<Response>> getListProductID() {
-        return mListProductID;
     }
 
     public ProductViewModel(@NonNull Application application) {
@@ -101,16 +102,34 @@ public class ProductViewModel extends AndroidViewModel {
         return list;
     }*/
 
-    public void insert(Response responseID) {
+   /* public void insert(Response responseID) {
         mProductRepository.insert(responseID);
+    }*/
+
+    public MutableLiveData<List<Response>> getProductOfCart(int[] Ids) {
+        return mProductRepository.getProductOfCart(Ids);
     }
-    public LiveData<List<Response>> getProductOfCart() {
-        mListProductID = mProductRepository.getAllResponseID();
-        LiveData<Response> products;
-        for (int i = 0; i <getListProductID().getValue().size() ; i++) {
-            products = getItem(getListProductID().getValue().get(i).getId());
-            mListResponseOfCart.setValue((List<Response>) products);
+
+   /* public Integer[] getItemsOfCart() {
+        Realm realm = Realm.getDefaultInstance();
+        ArrayList<Integer> listId = new ArrayList<>();
+        for (CartProduct cartProduct: realm.where(CartProduct.class).findAll()) {
+            listId.add(cartProduct.getId());
         }
-        return mListResponseOfCart;
+        return listId.toArray(new Integer[0]);
+    }*/
+
+
+    public void deleteRecord(Context application){
+        Realm.init(application);
+        Realm realm;
+        realm = Realm.getDefaultInstance();
+        RealmResults<CartProduct> results = realm.where(CartProduct.class).findAll();
+
+        realm.beginTransaction();
+
+        results.deleteAllFromRealm();
+
+        realm.commitTransaction();
     }
 }

@@ -70,9 +70,6 @@ public class AllProductActivity extends NetworkActivity implements AdapterView.O
     private void setUpToolbar() {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        /*if (mTypeOfList.equals("search"))
-            getSupportActionBar().setTitle("لیست محصولات");
-        else if (mTypeOfList)*/
     }
 
     private void initView() {

@@ -1,6 +1,8 @@
 package com.example.commerce.view.login;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,10 +30,12 @@ import java.util.List;
 public class LoginFragment extends Fragment {
 
     public static final int LOGIN_FRAGMENT_REQUEST_CODE = 0;
-    public static final String TAG_SIGNUP_FRAGMENT = "signup_fragment";
+    public static final String TAG_LOGIN_FRAGMENT = "login_fragment";
     private FragmentLoginBinding mBinding;
     private CustomerViewModel mCustomerViewModel;
     private boolean flag = false;
+    private String username;
+    private String password;
 
     public static LoginFragment newInstance() {
         
@@ -77,10 +81,11 @@ public class LoginFragment extends Fragment {
             SignUpFragment signupFragment =SignUpFragment.newInstance();
             signupFragment.setTargetFragment(LoginFragment.this , LOGIN_FRAGMENT_REQUEST_CODE);
 
-            fragmentManager.beginTransaction()// add to backStack baraye chiye???????????
-                    .replace(R.id.container_fragment , signupFragment , TAG_SIGNUP_FRAGMENT)
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container_fragment, signupFragment)
                     .addToBackStack(SignUpFragment.TAG)
                     .commit();
+
         });
 
         mBinding.loginLogin.setOnClickListener(view -> {
@@ -89,6 +94,19 @@ public class LoginFragment extends Fragment {
             else if (flag == false)
                 Toast.makeText(getContext(), "این نام کاربری وجود ندارد", Toast.LENGTH_LONG).show();
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK || data == null)
+            return;
+        if (requestCode == LOGIN_FRAGMENT_REQUEST_CODE){
+            username = data.getStringExtra(SignUpFragment.EXTRA_USERNAME);
+            password = data.getStringExtra(SignUpFragment.EXTRA_PASSWORD);
+            mBinding.loginUsername.setText(username);
+            mBinding.loginPass.setText(password);
+        }
     }
 
 }

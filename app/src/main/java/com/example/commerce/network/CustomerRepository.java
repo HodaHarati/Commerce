@@ -56,7 +56,7 @@ public class CustomerRepository {
         return mListCustomerLivedata;
     }
     
-    public MutableLiveData<List<User>> getAllCustomer() {
+    public MutableLiveData<List<User>> getCustomer() {
         HashMap<String, String> map = new HashMap<>();
         map.putAll(mQueries);
         Call<List<User>> call = mProductService.AllUsers(map);

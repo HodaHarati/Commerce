@@ -2,17 +2,19 @@ package com.example.commerce.network;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.commerce.model.product.CategoriesItem;
 import com.example.commerce.model.product.Response;
-import com.example.commerce.model.dao.ResponseDao;
-import com.example.commerce.model.database.AppDatabase;
+/*import com.example.commerce.model.dao.ResponseDao;
+import com.example.commerce.model.database.AppDatabase;*/
 import com.example.commerce.network.interfaces.ProductService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +37,9 @@ public class ProductRepository {
     private Map<String, String> mQueries;
     private Retrofit mRetrofit;
     private ProductService mProductService;
-    private ResponseDao mResponseDao;
+   // private ResponseDao mResponseDao;
 
-    private LiveData<List<Response>> mLiveDataListid;
+   // private LiveData<List<Response>> mLiveDataListid;
     private MutableLiveData<List<CategoriesItem>> mAllCategoriesItemLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mNewestLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Response>> mMostvisitedLiveData = new MutableLiveData<>();
@@ -66,9 +68,9 @@ public class ProductRepository {
 
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
 
-        AppDatabase appDatabase = AppDatabase.getDatabase(application);
+        /*AppDatabase appDatabase = AppDatabase.getDatabase(application);
         mResponseDao = appDatabase.mResponseDao();
-        mLiveDataListid = mResponseDao.getResponseIdList();
+        mLiveDataListid = mResponseDao.getResponseIdList();*/
     }
 
     public MutableLiveData<List<CategoriesItem>> getAllCategoriesItemLiveData() {
@@ -110,7 +112,7 @@ public class ProductRepository {
         call.enqueue(new Callback<List<CategoriesItem>>() {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
-                mAllCategoriesItemLiveData.setValue(response.body());
+                mAllCategoriesItemLiveData.postValue(response.body());
                 Log.d(TAG, "onResponse: calllllll");
             }
 
@@ -150,6 +152,7 @@ public class ProductRepository {
     }
 
     public MutableLiveData<List<Response>> getAllProduct(String order, int page) {
+
         HashMap<String, String> map = new HashMap<>();
         map.putAll(mQueries);
         map.put("orderby", order);
@@ -159,8 +162,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful()){
-                    mAllList.addAll(response.body());
-                    mProductList.setValue(mAllList);
+                    mProductList.postValue(response.body());
                 }
             }
 
@@ -177,7 +179,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful())
-                     liveData.setValue(response.body());
+                     liveData.postValue(response.body());
             }
 
             @Override
@@ -188,13 +190,13 @@ public class ProductRepository {
     }
 
     public MutableLiveData<Response> getItem(int productid) {
-       // mItemProductLiveData.setValue(new Response());
+
         Call<Response> call = mProductService.item(String.valueOf(productid), mQueries);
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 if (response.isSuccessful())
-                    mItemProductLiveData.setValue(response.body());
+                    mItemProductLiveData.postValue(response.body());
             }
 
             @Override
@@ -204,6 +206,7 @@ public class ProductRepository {
         });
         return mItemProductLiveData;
     }
+
 
     public MutableLiveData<List<CategoriesItem>> getSubCategories(int parent){
         HashMap<String, String> map = new HashMap<>();
@@ -215,7 +218,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, retrofit2.Response<List<CategoriesItem>> response) {
                 if (response.isSuccessful())
-                    subCategoriesLiveData.setValue(response.body());
+                    subCategoriesLiveData.postValue(response.body());
             }
 
             @Override
@@ -237,7 +240,7 @@ public class ProductRepository {
             @Override
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful())
-                    listSubCategoriesLiveData.setValue(response.body());
+                    listSubCategoriesLiveData.postValue(response.body());
             }
 
             @Override
@@ -261,7 +264,7 @@ public class ProductRepository {
             public void onResponse(Call<List<Response>> call, retrofit2.Response<List<Response>> response) {
                 if (response.isSuccessful()){
                     mAllSearchList.addAll(response.body());
-                    mProductSearchList.setValue(mAllSearchList);
+                    mProductSearchList.postValue(mAllSearchList);
                 }
             }
 
@@ -273,10 +276,24 @@ public class ProductRepository {
         return mProductSearchList;
     }
 
-    public LiveData<List<Response>> getAllResponseID() {
+    public MutableLiveData<List<Response>> getProductOfCart(int[] Ids) {
+        MutableLiveData<List<Response>> listProductOfCartLiveData = new MutableLiveData<>();
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("include", Arrays.toString(Ids));
+        map.putAll(mQueries);
+        Call<List<Response>> call = mProductService.getResponse(map);
+        getEnqueue(call, listProductOfCartLiveData);
+        return listProductOfCartLiveData;
+    }
+
+
+
+   /* public LiveData<List<Response>> getAllResponseID() {
         return mLiveDataListid;
-    }
-    public void insert(Response responseId) {
+    }*/
+
+   /* public void insert(Response responseId) {
         AppDatabase.responseExecutor.execute(() -> {mResponseDao.insert(responseId);});
-    }
+    }*/
 }

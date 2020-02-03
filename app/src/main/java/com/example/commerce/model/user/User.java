@@ -57,9 +57,8 @@ public class User{
 	@SerializedName("password")
 	private String password;
 
-	public User(String email, String password) {
+	public User(String email) {
 		this.email = email;
-		this.password = password;
 	}
 
 	public String getPassword() {

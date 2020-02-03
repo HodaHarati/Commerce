@@ -73,6 +73,8 @@ public class CommerceFragment extends NetworkFragment {
         super.onCreate(savedInstanceState);
 
         mViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        /*mViewModel.deleteRecord(getContext());
+        Log.d(TAG, "onCreate: DELETE");*/
         mViewModel.getAllCategoriesLiveData().observe(this, new Observer<List<CategoriesItem>>() {
             @Override
             public void onChanged(List<CategoriesItem> categoriesItems) {

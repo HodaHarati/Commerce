@@ -1,291 +1,225 @@
 package com.example.commerce.model.product;
 
-import androidx.room.ColumnInfo;
+/*import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import androidx.room.PrimaryKey;*/
 
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
 //@Generated("com.robohorse.robopojogenerator")
-@Entity
+
 public class Response{
 
-	@Ignore
 	@SerializedName("upsell_ids")
 	private List<Object> upsellIds;
 
-	@Ignore
+
 	@SerializedName("featured")
 	private boolean featured;
 
-	@Ignore
 	@SerializedName("purchasable")
 	private boolean purchasable;
 
-	@Ignore
 	@SerializedName("grouped_products")
 	private List<Object> groupedProducts;
 
-	@Ignore
 	@SerializedName("_links")
 	private Links links;
 
-	@Ignore
 	@SerializedName("tax_status")
 	private String taxStatus;
 
-	@Ignore
 	@SerializedName("catalog_visibility")
 	private String catalogVisibility;
 
-	@Ignore
 	@SerializedName("type")
 	private String type;
 
-	@Ignore
 	@SerializedName("external_url")
 	private String externalUrl;
 
-	@Ignore
 	@SerializedName("price")
 	private String price;
 
-	@Ignore
 	@SerializedName("meta_data")
 	private List<Object> metaData;
 
-	@PrimaryKey
 	@SerializedName("id")
 	private int id;
 
-	@ColumnInfo(name = "totalSale")
-	private int totalSale;
+	private int count;
 
-	@Ignore
 	@SerializedName("sku")
 	private String sku;
 
-	@Ignore
 	@SerializedName("slug")
 	private String slug;
 
-	@Ignore
 	@SerializedName("date_on_sale_from")
 	private Object dateOnSaleFrom;
 
-	@Ignore
 	@SerializedName("shipping_required")
 	private boolean shippingRequired;
 
-	@Ignore
 	@SerializedName("date_modified_gmt")
 	private String dateModifiedGmt;
 
-	@Ignore
 	@SerializedName("images")
 	private List<ImagesItem> images;
 
-	@Ignore
 	@SerializedName("stock_status")
 	private String stockStatus;
 
-	@Ignore
 	@SerializedName("price_html")
 	private String priceHtml;
 
-	@Ignore
 	@SerializedName("download_expiry")
 	private int downloadExpiry;
 
-	@Ignore
 	@SerializedName("backordered")
 	private boolean backordered;
 
-	@Ignore
 	@SerializedName("weight")
 	private String weight;
 
-	@Ignore
 	@SerializedName("rating_count")
 	private int ratingCount;
 
-	@Ignore
 	@SerializedName("tags")
 	private List<TagsItem> tags;
 
-	@Ignore
 	@SerializedName("date_on_sale_to")
 	private Object dateOnSaleTo;
 
-	@Ignore
 	@SerializedName("sold_individually")
 	private boolean soldIndividually;
 
-	@Ignore
 	@SerializedName("backorders")
 	private String backorders;
 
-	@Ignore
 	@SerializedName("shipping_taxable")
 	private boolean shippingTaxable;
 
-	@Ignore
 	@SerializedName("parent_id")
 	private int parentId;
 
-	@Ignore
 	@SerializedName("download_limit")
 	private int downloadLimit;
 
-	@Ignore
 	@SerializedName("name")
 	private String name;
 
-	@Ignore
 	@SerializedName("shipping_class")
 	private String shippingClass;
 
-	@Ignore
 	@SerializedName("button_text")
 	private String buttonText;
 
-	@Ignore
 	@SerializedName("permalink")
 	private String permalink;
 
-	@Ignore
 	@SerializedName("status")
 	private String status;
 
-	@Ignore
 	@SerializedName("cross_sell_ids")
 	private List<Object> crossSellIds;
 
-	@Ignore
 	@SerializedName("short_description")
 	private String shortDescription;
 
-	@Ignore
 	@SerializedName("virtual")
 	private boolean virtual;
 
-	@Ignore
 	@SerializedName("downloadable")
 	private boolean downloadable;
 
-	@Ignore
 	@SerializedName("menu_order")
 	private int menuOrder;
 
-	@Ignore
 	@SerializedName("description")
 	private String description;
 
-	@Ignore
 	@SerializedName("date_on_sale_to_gmt")
 	private Object dateOnSaleToGmt;
 
-	@Ignore
 	@SerializedName("date_on_sale_from_gmt")
 	private Object dateOnSaleFromGmt;
 
-	@Ignore
 	@SerializedName("regular_price")
 	private String regularPrice;
 
-	@Ignore
 	@SerializedName("backorders_allowed")
 	private boolean backordersAllowed;
 
-	@Ignore
 	@SerializedName("downloads")
 	private List<Object> downloads;
 
-	@Ignore
 	@SerializedName("reviews_allowed")
 	private boolean reviewsAllowed;
 
-	@Ignore
 	@SerializedName("variations")
 	private List<Object> variations;
 
-	@Ignore
 	@SerializedName("categories")
 	private List<CategoriesItem> categories;
 
-	@Ignore
 	@SerializedName("total_sales")
 	private int totalSales;
 
-	@Ignore
 	@SerializedName("on_sale")
 	private boolean onSale;
 
-	@Ignore
 	@SerializedName("manage_stock")
 	private boolean manageStock;
 
-	@Ignore
 	@SerializedName("default_attributes")
 	private List<Object> defaultAttributes;
 
-	@Ignore
 	@SerializedName("purchase_note")
 	private String purchaseNote;
 
-	@Ignore
 	@SerializedName("date_created")
 	private String dateCreated;
 
-	@Ignore
 	@SerializedName("tax_class")
 	private String taxClass;
 
-	@Ignore
 	@SerializedName("date_created_gmt")
 	private String dateCreatedGmt;
 
-	@Ignore
 	@SerializedName("average_rating")
 	private String averageRating;
 
-	@Ignore
 	@SerializedName("stock_quantity")
 	private Object stockQuantity;
 
-	@Ignore
 	@SerializedName("sale_price")
 	private String salePrice;
 
-	@Ignore
 	@SerializedName("shipping_class_id")
 	private int shippingClassId;
 
-	@Ignore
 	@SerializedName("date_modified")
 	private String dateModified;
 
-	@Ignore
 	@SerializedName("related_ids")
 	private List<Integer> relatedIds;
 
-	@Ignore
 	@SerializedName("attributes")
 	private List<Object> attributes;
 
-	@Ignore
 	@SerializedName("dimensions")
 	private Dimensions dimensions;
 
-	public void setTotalSale(int totalSale) {
-		this.totalSale = totalSale;
+	public void setCount(int count) {
+		this.count = count;
 	}
 
-	public int getTotalSale() {
-		return totalSale;
+	public int getCount() {
+		return count;
 	}
 
 	public void setUpsellIds(List<Object> upsellIds){

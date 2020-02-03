@@ -61,8 +61,11 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation "com.squareup.okhttp3:okhttp:3.13.1"
     // Room
-    implementation "androidx.room:room-runtime:2.2.3"
-    annotationProcessor 'android.arch.persistence.room:compiler:2.2.3'
+    /*implementation "androidx.room:room-runtime:2.2.3"
+    annotationProcessor 'android.arch.persistence.room:compiler:2.2.3'*/
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+
 }
+apply plugin: 'realm-android'

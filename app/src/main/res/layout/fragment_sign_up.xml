@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         tools:context=".view.login.SignUpFragment"
         android:orientation="vertical"
-        >
+        android:background="@android:color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/sign_username"

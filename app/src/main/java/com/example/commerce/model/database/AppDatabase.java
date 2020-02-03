@@ -1,3 +1,4 @@
+/*
 package com.example.commerce.model.database;
 
 import android.content.Context;
@@ -32,3 +33,4 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 }
+*/
