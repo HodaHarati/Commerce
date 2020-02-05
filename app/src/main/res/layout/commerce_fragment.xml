@@ -17,8 +17,7 @@
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/sliderLayout"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:paddingTop="5dp"
+                android:layout_height="180dp"
                 app:indicator_visibility="visible"
                 app:pager_animation="Default"
                 tools:ignore="MissingConstraints" />

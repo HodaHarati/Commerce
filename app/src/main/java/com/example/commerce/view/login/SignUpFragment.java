@@ -54,7 +54,7 @@ public class SignUpFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCustomerViewModel = ViewModelProviders.of(this).get(CustomerViewModel.class);
-        mCustomerViewModel.getAllCustomerLivedata().observe(this, new Observer<List<User>>() {
+        /*mCustomerViewModel.getAllCustomerLivedata().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
                 for (User user: users) {
@@ -63,7 +63,7 @@ public class SignUpFragment extends Fragment {
                 }
             }
         });
-        mCustomerViewModel.getAllCustomer();
+        mCustomerViewModel.getAllCustomer();*/
     }
 
     @Override

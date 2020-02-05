@@ -103,6 +103,22 @@ public class CommerceFragment extends NetworkFragment {
             }
         });
 
+        mViewModel.getItemProductLiveData().observe(this, new Observer<Response>() {
+            @Override
+            public void onChanged(Response response) {
+
+                mBinding.sliderLayout.removeAllSliders();
+                for (int i = 0; i < response.getImages().size(); i++) {
+                    String url = response.getImages().get(i).getSrc();
+                    TextSliderView textSliderView = new TextSliderView(getActivity());
+                    textSliderView.image(url).setScaleType(BaseSliderView.ScaleType.FitCenterCrop);
+                    mBinding.sliderLayout.addSlider(textSliderView);
+                }
+            }
+        });
+        mViewModel.getItem(608);
+
+
         setHasOptionsMenu(true);
     }
 
@@ -115,7 +131,7 @@ public class CommerceFragment extends NetworkFragment {
         mBinding.mostVisited.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.bestProduct.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mBinding.recycleCategory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        setUpSlider();
+       // setUpSlider();
         initListener();
         return mBinding.getRoot();
     }
@@ -136,7 +152,7 @@ public class CommerceFragment extends NetworkFragment {
             startActivity(intent);
         });
     }
-
+/*
     private void setUpSlider() {
         HashMap<String, Integer> images = new HashMap<>();
         images.put("image1", R.drawable.image1);
@@ -147,7 +163,10 @@ public class CommerceFragment extends NetworkFragment {
             textSliderView.description(imageName).image(images.get(imageName)).setScaleType(BaseSliderView.ScaleType.CenterCrop);
             mBinding.sliderLayout.addSlider(textSliderView);
         }
-    }
+    }*/
+
+
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.commerce.R;
 import com.example.commerce.databinding.FragmentLoginBinding;
 import com.example.commerce.model.user.User;
+import com.example.commerce.view.listProduct.MainActivity;
 import com.example.commerce.viewmodel.CustomerViewModel;
 
 import java.util.List;
@@ -33,9 +34,9 @@ public class LoginFragment extends Fragment {
     public static final String TAG_LOGIN_FRAGMENT = "login_fragment";
     private FragmentLoginBinding mBinding;
     private CustomerViewModel mCustomerViewModel;
-    private boolean flag = false;
     private String username;
     private String password;
+    private String str;
 
     public static LoginFragment newInstance() {
         
@@ -54,16 +55,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCustomerViewModel = ViewModelProviders.of(this).get(CustomerViewModel.class);
-        mCustomerViewModel.getAllCustomerLivedata().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                for (User user: users) {
-                    if (user.getEmail().equals(mBinding.loginUsername.getText().toString()))
-                        flag = true;
-                }
-            }
-        });
-        mCustomerViewModel.getAllCustomer();
     }
 
     @Override
@@ -89,10 +80,24 @@ public class LoginFragment extends Fragment {
         });
 
         mBinding.loginLogin.setOnClickListener(view -> {
+            mCustomerViewModel.getUserByEmail(mBinding.loginUsername.getText().toString());
+            mCustomerViewModel.getUserLiveData().observe(this, new Observer<User>() {
+                @Override
+                public void onChanged(User user) {
+                    str = user.getEmail();
+                }
+            });
+
+
             if (mBinding.loginUsername.getText().equals("") || mBinding.loginPass.getText().equals(""))
                 Toast.makeText(getContext(), "لطفا نام کاربری و کلمه عبور را وارد نمایید", Toast.LENGTH_LONG).show();
-            else if (flag == false)
-                Toast.makeText(getContext(), "این نام کاربری وجود ندارد", Toast.LENGTH_LONG).show();
+            else if (str==null)
+                Toast.makeText(getContext(), "این نام کاربری وجود ندارد لطفا ثبت نام کنید", Toast.LENGTH_LONG).show();
+            else {
+                Intent intent = MainActivity.newIntent(getActivity());
+                startActivity(intent);
+            }
+
         });
     }
 

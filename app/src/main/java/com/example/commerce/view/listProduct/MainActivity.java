@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inspector.StaticInspectionCompanionProvider;
 import android.widget.Button;
 
 import com.example.commerce.R;
@@ -26,6 +27,11 @@ public class MainActivity extends SingleFragmentActivity implements NavigationVi
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     public Fragment createFragment() {

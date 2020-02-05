@@ -31,7 +31,8 @@ public class CustomerRepository {
     private Retrofit mRetrofit;
     private ProductService mProductService;
     
-    private MutableLiveData<List<User>> mListCustomerLivedata = new MutableLiveData<>();
+    //private MutableLiveData<List<User>> mListCustomerLivedata = new MutableLiveData<>();
+    private MutableLiveData<User> mUser = new MutableLiveData<>();
 
     public static CustomerRepository getInstance(Application application) {
         if (sInstance == null)
@@ -52,14 +53,18 @@ public class CustomerRepository {
         mProductService = mRetrofit.create(ProductService.class);    // create object from Interface
     }
 
-    public MutableLiveData<List<User>> getListCustomerLivedata() {
+    /*public MutableLiveData<List<User>> getListCustomerLivedata() {
         return mListCustomerLivedata;
+    }*/
+
+    public MutableLiveData<User> getUser() {
+        return mUser;
     }
-    
-    public MutableLiveData<List<User>> getCustomer() {
+
+    /* public MutableLiveData<List<User>> getCustomer() {
         HashMap<String, String> map = new HashMap<>();
         map.putAll(mQueries);
-        Call<List<User>> call = mProductService.AllUsers(map);
+        Call<List<User>> call = mProductService.getUser(map);
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -74,7 +79,7 @@ public class CustomerRepository {
             }
         });
         return mListCustomerLivedata;
-    }
+    }*/
 
     public void postCustomer(User user) {
         HashMap<String, String> map = new HashMap<>();
@@ -85,6 +90,7 @@ public class CustomerRepository {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful())
                     Log.i(TAG, "onResponse: " + "post is successful");
+               // response.body().getId()
             }
 
             @Override
@@ -93,4 +99,25 @@ public class CustomerRepository {
             }
         });
     }
+
+    public MutableLiveData<User> getUserByEmail(String email) {
+        HashMap<String, String> map = new HashMap<>();
+        map.putAll(mQueries);
+        map.put("email", email);
+        Call<User> call = mProductService.getUser(map);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful())
+                    mUser.postValue(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage(), t );
+            }
+        });
+        return mUser;
+     }
 }

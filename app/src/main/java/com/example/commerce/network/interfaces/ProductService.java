@@ -34,9 +34,8 @@ public interface ProductService {
 
     @POST("customers")
     Call<User> createCustomer(@QueryMap Map<String, String> queries, @Body User user);
-                              /*@Field("email") String email,
-                              @Field("password") String password);*/
 
     @GET("customers")
-    Call<List<User>> AllUsers(@QueryMap Map<String, String> queries);
+    Call<User> getUser(@QueryMap Map<String, String> queries);
+
 }
