@@ -1,8 +1,7 @@
 # Commerce
 
 ![splashPNG](https://user-images.githubusercontent.com/54942448/74115947-a6aa2e00-4bc6-11ea-9854-18bc90be6212.PNG)
-![allProduct](https://user-images.githubusercontent.com/54942448/74114265-4ca56a80-4bbe-11ea-952a-d97bca0b9899.PNG)
-![detail](https://user-images.githubusercontent.com/54942448/74114520-d1dd4f00-4bbf-11ea-92a3-a43fac192259.PNG)
+![allProduct](https://user-images.githubusercontent.com/54942448/74114265-4ca56a80-4bbe-11ea-952a-d97bca0b9899.PNG)![detail](https://user-images.githubusercontent.com/54942448/74114520-d1dd4f00-4bbf-11ea-92a3-a43fac192259.PNG)
 
 This is an online shop. In this app I work whit REST full API. Products are on a Woocomerce website. I've used Retrofit2 library to fetch items from net and Gson library is used to get the model.
 
