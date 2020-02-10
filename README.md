@@ -8,7 +8,7 @@ At first you see splash screen that Lottie animation is used for this, and after
 
 In this page you see 3 lists of products contains: newest products, most visited and popular products.(The Picasso library is used to display photos of product.)
 by click on each product, new page will apear that has image of product on slider and also name, description, orginal and sale price. 
-This page also has add_to_cart botton. By click on it new page will be apear. You can see all of product that you add them to cart. For this I've used Realm database.
+This page also has add_to_cart botton. By click on it new page will be apear. You can see all of products that you add them to cart. For this I've used Realm database.
 
 ![allproduct](https://user-images.githubusercontent.com/54942448/74114626-6d6ebf80-4bc0-11ea-9afb-a424f16a294b.PNG)
 ![subcategory](https://user-images.githubusercontent.com/54942448/74114681-b45cb500-4bc0-11ea-8a06-48cb91c659c5.PNG)
