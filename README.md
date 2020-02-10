@@ -8,13 +8,13 @@ At first you see splash screen that Lottie animation is used for this, and after
 
 In this page you see 3 lists of products contains: newest products, most visited and popular products.(The Picasso library is used to display photos of product.)
 by click on each product, new page will apear that has image of product on slider and also name, description, orginal and sale price. 
-This page also has add_to_cart botton. By click on it new page will be apear. You can see all of products that you add them to cart. For this I've used Realm database.
+This page also has add_to_cart button. By click on it new page will be apear. You can see all of products that you add them to cart. For this I've used Realm database.
 
 ![allproduct](https://user-images.githubusercontent.com/54942448/74114626-6d6ebf80-4bc0-11ea-9afb-a424f16a294b.PNG)
 ![subcategory](https://user-images.githubusercontent.com/54942448/74114681-b45cb500-4bc0-11ea-8a06-48cb91c659c5.PNG)
 
 In the main page if you want to see all of product's list you have to click on the text view at the left side of list. 
-Also in the main page you could see some bottons under the slider that show all categories. 
+Also in the main page you could see some buttons under the slider that show all categories. 
 By click on each of them you see new page that have view pager with tab layout to show all categories and subcategories. 
 When you click on subcategory you can see all of products of it. 
 In the main page also search view is used to search in all product.
@@ -25,7 +25,7 @@ In the main page also search view is used to search in all product.
 
 In the main page by click on the navigation view you could access any section you want. Also you could login or sign up.
 This application works when you are connected to the network. If you aren't connected, the app will alert you by a new page. 
-In this page ther is a botton, if you are connected again you could press the botton and Keep up the work.(for this I've used broadcast reciver)
+In this page ther is a button, if you are connected again you could press the button and Keep up the work.(for this I've used broadcast reciver)
 
 In summary:
 The architecture used is MVVM, I've used Live Data and data binding. I've used Repository and it is singletone. 
